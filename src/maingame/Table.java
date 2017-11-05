@@ -12,28 +12,33 @@ import java.util.ArrayList;
  * @author Sierra Kilo
  */
 public class Table {
-    ArrayList<Tile> playedTiles;
+    ArrayList<Tile> tableTiles;
     
     public Table() {
-        playedTiles = new ArrayList<>();
+        tableTiles = new ArrayList<>();
         
     }
     
     public int getSize() {
-        return playedTiles.size();
+        return tableTiles.size();
     }
     
     public Tile getTile(int pos) {
-        return playedTiles.get(pos);
+        return tableTiles.get(pos);
     }
     
-    public void setTile(Tile piece) {
-        playedTiles.add(piece);
+    public void addTile(Tile piece,int side) {
+        //side == 0 is left, side == 1 is right
+        if (side == 0) {
+            tableTiles.add(0,piece);
+        }else {
+            tableTiles.add(piece);
+        }
     }
     
     public void showTable() {
-        for(Tile piece : playedTiles) {
-            System.out.printf("%d %d|", piece.getNum1(), piece.getNum2());
+        for(Tile piece : tableTiles) {
+            System.out.printf("|%d %d|", piece.getNum1(), piece.getNum2());
         }
     }
     

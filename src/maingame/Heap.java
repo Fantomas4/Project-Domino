@@ -56,7 +56,7 @@ public class Heap {
     }
   
     public void removeTile(int choice) {
-        ArrayList<Tile> column = new ArrayList<>();
+        ArrayList<Tile> column;
         column = heapTiles.get(choice-1);
         column.remove(column.size()-1);
 
@@ -64,7 +64,7 @@ public class Heap {
     
     public Tile chooseTile(int choice) {
         //choice: 1-4
-        ArrayList<Tile> column = new ArrayList<>();
+        ArrayList<Tile> column;
         column = heapTiles.get(choice-1);
         return column.get(column.size()-1);
         

@@ -11,34 +11,36 @@ package maingame;
  */
 public class Solo1 {
     Heap heap;
+    Table table;
     
     public Solo1() {
         heap = new Heap();
+        table = new Table();
         
     }
     
-    public boolean checkTile(Table table,Tile piece, int side) {
-        //side == 0 for left and side == 1 for right
-        if (side == 0) {
-            return table.getTile(0).getNum1() == piece.getNum2();
-         } else {
-            return table.getTile(table.getSize()-1).getNum2() == piece.getNum1();
-        } 
-         
-    }
-    
-    public boolean moveExists(Table table) {
-
-        for(int i=1; i<5 ; i++) {
-            if (checkTile(table, heap.chooseTile(i),0) == true || checkTile(table, heap.chooseTile(i),1)== true ){
-                return true;
-            } 
-        }
-        return false;
-    }
-    
-    public int gameStatus(Heap heap,Table table) {
-        //0 == in progress, 1 = win, 2 = gameover
+//    public boolean checkTile(Tile piece, int side) {
+//        //side == 0 for left and side == 1 for right
+//        if (side == 0) {
+//            return table.getTile(0).getNum1() == piece.getNum2();
+//         } else {
+//            return table.getTile(table.getSize()-1).getNum2() == piece.getNum1();
+//        } 
+//         
+//    }
+//    
+//    public boolean moveExists(Table table) {
+//
+//        for(int i=1; i<5 ; i++) {
+//            if (checkTile(heap.chooseTile(i),0) == true || checkTile(heap.chooseTile(i),1)== true ){
+//                return true;
+//            } 
+//        }
+//        return false;
+//    }
+//    
+    public int gameStatus() {
+        //0 == gameover, 1 = in progress, 2 = win
         //MPOREI NA SIKONEI KAI VELTIOSI ALGORITHMOU
         int result = 0;
         if (table.getSize() == 28) {
