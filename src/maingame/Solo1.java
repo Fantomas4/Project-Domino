@@ -21,13 +21,22 @@ public class Solo1 {
     
     public boolean checkTileChoice(Tile piece) {
         if (table.getSize() == 0) {
-            //table is empty and we are placing the first tile
+            //table is empty and we are placing the first tile.
             table.addTile(piece,1);
         } else {
+            //there are already tiles placed on the table.
             if (piece.getNum1() == table.getFirstTile().getNum1()) {
                 piece.rotateTile();
                 table.addTile(piece, 0);
+            } else if (piece.getNum2() == table.getFirstTile().getNum1()){
+                table.addTile(piece,0);
+            } else if (piece.getNum1() == table.getLastTile().getNum2()) {
+                table.addTile(piece, 1);
+            } else if (piece.getNum2() == table.getLastTile().getNum2()) {
+                piece.rotateTile();
+                table.addTile(piece, 1);
             }
+                
             
             
             
