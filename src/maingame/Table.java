@@ -23,12 +23,17 @@ public class Table {
         return tableTiles.size();
     }
     
-    public Tile getTile(int pos) {
-        return tableTiles.get(pos);
+    public Tile getFirstTile() {
+        return tableTiles.get(0);
+    }
+    
+    public Tile getLastTile() {
+        return tableTiles.get(tableTiles.size()-1);
     }
     
     public void addTile(Tile piece,int side) {
-        //side == 0 is left, side == 1 is right
+        //side == 0 places tile to the left edge, side == 1 places tile to the right edge 
+        //and is also used for placing the first tile on the table.
         if (side == 0) {
             tableTiles.add(0,piece);
         }else {

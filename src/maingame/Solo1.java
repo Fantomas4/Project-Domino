@@ -19,16 +19,27 @@ public class Solo1 {
         
     }
     
-//    public boolean checkTile(Tile piece, int side) {
-//        //side == 0 for left and side == 1 for right
-//        if (side == 0) {
-//            return table.getTile(0).getNum1() == piece.getNum2();
-//         } else {
-//            return table.getTile(table.getSize()-1).getNum2() == piece.getNum1();
-//        } 
-//         
-//    }
-//    
+    public boolean checkTileChoice(Tile piece) {
+        if (table.getSize() == 0) {
+            //table is empty and we are placing the first tile
+            table.addTile(piece,1);
+        } else {
+            if (piece.getNum1() == table.getFirstTile().getNum1()) {
+                piece.rotateTile();
+                table.addTile(piece, 0);
+            }
+            
+            
+            
+            
+            
+            
+            
+                
+        }
+         
+    }
+    
 //    public boolean moveExists(Table table) {
 //
 //        for(int i=1; i<5 ; i++) {
