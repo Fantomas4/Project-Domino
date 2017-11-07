@@ -61,6 +61,12 @@ public class Solo1 {
             } while (true);
 
         } while (gameStatus() == 1); // 1: game in progress.
+        
+        if (gameStatus() == 0) {
+            System.out.println("Game over! There are no possible moves left!");
+        } else if (gameStatus() == 2) {
+            System.out.println("Congratulations! You have won!");
+        }
     }
 
     public boolean possibleMoveExists() {
