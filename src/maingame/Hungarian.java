@@ -12,61 +12,112 @@ import java.util.Scanner;
  * @author Sierra Kilo
  */
 public class Hungarian {
+
     Heap heap;
     Table table;
     Player player;
     Bot bot;
-    
-    public Hungarian(){
+
+    public Hungarian() {
         heap = new Heap();
         table = new Table();
         player = new Player();
         bot = new Bot();
     }
-    
+
     private int whoPlaysFirst() {
         //returns 1 if player is to play first. 
         //returns 2 if bot is to play first
         Tile playerTile = player.getHighestTile();
         Tile botTile = bot.getHighestTile();
-        
+
         if (playerTile.getNum1() > botTile.getNum1()) {
             return 1;
-        } else{
+        } else {
             return 2;
         }
     }
-    
+
     public void run() {
         int playingNow; //1 means player is playing, 2 means bot is playing.
         Scanner input = new Scanner(System.in);
         int choice;
-        
-        do{
-            playingNow = whoPlaysFirst();
-            do{
-                switch (playingNow) {
-                    
-                    case 1: player.showPlayerTiles();
-                            do{
-                               System.out.println("Choose which tile you want to play with (1-" + player.getPlayerTilesAmount());
-                               choice = input.nextInt(); 
-                            }while(choice < 1 || choice > player.getPlayerTilesAmount());
-                            table.addTile(player.playTile(choice));
-                            break;
+        Tile chosenTile;
 
-                        
-                        
-                        
-                        
-                        
+        do {
+            playingNow = whoPlaysFirst();
+            do {
+                switch (playingNow) {
+
+                    case 1:
+                        player.showPlayerTiles();
+                        do {
+                            System.out.println("Choose which tile you want to play with (1-" + player.getPlayerTilesAmount());
+                            choice = input.nextInt();
+
+                            if (choice < 1 || choice > 4) {
+                                System.out.println("Wrong choice number! Choose a number from 1 to " + player.getPlayerTilesAmount());
+                                //continue;
+                            } else {
+                                chosenTile = heap.chooseTile(choice);
+
+                                if (checkTileChoice(chosenTile) == 0) {
+                                    System.out.println("Invalid move. Please try again!");
+                                    //continue;
+                                } else if (checkTileChoice(chosenTile) == 1) {
+                                    table.addTile(chosenTile);
+                                    break;
+                                } else if (checkTileChoice(chosenTile) == 2) {
+                                    chosenTile.rotateTile();
+                                    table.addTile(chosenTile);
+                                    break;
+                                }
+                            }
+
+                        } while (true);
+
+//                            do{
+//                               System.out.println("Choose which tile you want to play with (1-" + player.getPlayerTilesAmount());
+//                               choice = input.nextInt(); 
+//                            }while( (choice < 1 || choice > player.getPlayerTilesAmount()) && checkTileChoice() !=0 );
+//                            table.addTile(player.playTile(choice));
+//                            break;
                 }
 
-            }while(//round has not ended);
+            } while (//round has not ended);
             
             
             
-        }while(//score < 100);
-    }
+        
+        } while (//score < 100);
     
+    }
+
+    public int checkTileChoice(Tile piece) {
+        //result == 0 rejected choice
+        //result == 1 accepted choice
+        //result == 2 accepted choice but tile needs to rotate in order to be placed
+
+        //table is empty and we are placing the first tile.
+        if (table.getSize() == 0) {
+
+            return 1;
+
+            //there are already tiles placed on the table.
+        } else if (piece.getNum1() == table.getFirstTile().getNum1()) {
+            return 2;
+        } else if (piece.getNum2() == table.getFirstTile().getNum1()) {
+            return 1;
+        } else if (piece.getNum1() == table.getLastTile().getNum2()) {
+            return 1;
+        } else if (piece.getNum2() == table.getLastTile().getNum2()) {
+            return 2;
+
+            //incorrect tile choice from heap incompatible with table
+        } else {
+            return 0;
+        }
+
+    }
+
 }
