@@ -35,5 +35,19 @@ public class Bot {
         
     }
     
+    public Tile getHighestTile() {
+        // (-1,-1) is a tile representing that the player has no tiles with num1 == num2
+        Tile maxTile = new Tile(-1,-1);
+        
+        for (Tile piece : botTiles) {
+            if (piece.getNum1() == piece.getNum2()) {
+                if (piece.getNum1() > maxTile.getNum1()) {
+                    maxTile = piece;
+                }
+            }
+            
+        }
+        return maxTile;
+    }
     
 }
