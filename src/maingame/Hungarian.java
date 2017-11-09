@@ -59,17 +59,19 @@ public class Hungarian {
                                 System.out.println("Wrong choice number! Choose a number from 1 to " + player.getPlayerTilesAmount());
                                 //continue;
                             } else {
-                                chosenTile = heap.chooseTile(choice);
+                                chosenTile = player.chooseTile(choice);
 
                                 if (checkTileChoice(chosenTile) == 0) {
                                     System.out.println("Invalid move. Please try again!");
                                     //continue;
                                 } else if (checkTileChoice(chosenTile) == 1) {
                                     table.addTile(chosenTile);
+                                    player.removeTile(choice);
                                     break;
                                 } else if (checkTileChoice(chosenTile) == 2) {
                                     chosenTile.rotateTile();
                                     table.addTile(chosenTile);
+                                    player.removeTile(choice);
                                     break;
                                 }
                             }

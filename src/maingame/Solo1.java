@@ -50,10 +50,12 @@ public class Solo1 {
                         //continue;
                     } else if (checkTileChoice(chosenTile) == 1) {
                         table.addTile(chosenTile);
+                        heap.removeTile(choice);
                         break;
                     } else if (checkTileChoice(chosenTile) == 2) {
                         chosenTile.rotateTile();
                         table.addTile(chosenTile);
+                        heap.removeTile(choice);
                         break;
                     }
                 }
