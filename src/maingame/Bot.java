@@ -5,10 +5,24 @@
  */
 package maingame;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Sierra Kilo
  */
 public class Bot {
+    ArrayList<Tile> botTiles;
+    
+    public Bot() {
+        botTiles = new ArrayList<>();
+    }
+    
+    public void pickTiles(Heap heap) {
+        for(int i=1; i<=12 ; i++){
+            botTiles.add(heap.pickRandomTile());
+        }
+    }
+    
     
 }
