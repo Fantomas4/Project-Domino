@@ -44,8 +44,12 @@ public class Table {
             do{
                 answer = input.nextLine();
                 
-                if (answer.equals("left") || answer.equals("right")){
+                if (answer.equals("left")){
                     acceptInput = true;
+                    tableTiles.add(0,piece);
+                }else if (answer.equals("right")) {
+                    acceptInput = true;
+                    tableTiles.add(piece);                 
                 }else {
                     System.out.println("Wrong entry! Please type left or right");
                 }   
