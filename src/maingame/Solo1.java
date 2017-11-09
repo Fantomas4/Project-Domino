@@ -94,7 +94,7 @@ public class Solo1 {
         } else if (piece.getNum2() == table.getFirstTile().getNum1()) {
             return 1;
         } else if (piece.getNum1() == table.getLastTile().getNum2()) {
-            return 2;
+            return 1;
         } else if (piece.getNum2() == table.getLastTile().getNum2()) {
             return 2;
 
