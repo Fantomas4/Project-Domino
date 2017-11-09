@@ -13,15 +13,26 @@ import java.util.ArrayList;
  */
 public class Player {
     ArrayList<Tile> playerTiles;
+    int score;
     
     public Player() {
         playerTiles = new ArrayList<>();
+        score = 0;
     }
     
     public void pickTiles(Heap heap) {
         for(int i=1; i<=12 ; i++){
             playerTiles.add(heap.pickRandomTile());
         }
+    }
+    
+    public int getScore() {
+        return score;
+    }
+    
+    public void increaseScore(int points) {
+        score += points;
+        
     }
     
     

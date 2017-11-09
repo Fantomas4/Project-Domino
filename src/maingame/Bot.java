@@ -13,6 +13,7 @@ import java.util.ArrayList;
  */
 public class Bot {
     ArrayList<Tile> botTiles;
+    int score;
     
     public Bot() {
         botTiles = new ArrayList<>();
@@ -22,6 +23,15 @@ public class Bot {
         for(int i=1; i<=12 ; i++){
             botTiles.add(heap.pickRandomTile());
         }
+    }
+    
+    public int getScore() {
+        return score;
+    }
+    
+    public void increaseScore(int points) {
+        score += points;
+        
     }
     
     
