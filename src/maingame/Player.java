@@ -35,5 +35,20 @@ public class Player {
         
     }
     
+    public Tile getHighestTile() {
+        
+        Tile maxTile = new Tile(-1,-1);
+        
+        for (Tile piece : playerTiles) {
+            if (piece.getNum1() == piece.getNum2()) {
+                if (piece.getNum1() > maxTile.getNum1()) {
+                    maxTile = piece;
+                }
+            }
+            
+        }
+        return maxTile;
+    }
+    
     
 }
