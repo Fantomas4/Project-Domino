@@ -78,19 +78,21 @@ public class Hungarian {
 
                         } while (true);
                         break;
-                    case 2:
                         
+                    case 2:
 
 //                            
                 }
 
-            } while (h partida den teleiose);
+            } while (h 
+            partida den teleiose
+          );
             
             
             
         
         } while (player.getScore() < 100 && bot.getScore() < 100);
-    
+
     }
 
     public int checkTileChoice(Tile piece) {
@@ -118,6 +120,32 @@ public class Hungarian {
             return 0;
         }
 
+    }
+    
+    public boolean possibleMoveExists() {
+        for (int i = 1; i <= player.getPlayerTilesAmount(); i++) {
+            if (checkTileChoice(player.chooseTile(i)) != 0) { //choose tile accepts int in range 1-4.
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public int gameStatus() {
+        //0 == gameover, 1 == player plays next, 2 == bot plays next
+        //MPOREI NA SIKONEI KAI VELTIOSI ALGORITHMOU
+        int result = 0;
+        
+        if (possibleMoveExists(player))
+
+//        if (table.getSize() == 28) {
+//            result = 2;
+//        } else if (table.getSize() < 28 && possibleMoveExists() == true) {
+//            result = 1;
+//        } else if (table.getSize() < 28 && possibleMoveExists() == false) {
+//            result = 0;
+//        }
+        return result;
     }
 
 }

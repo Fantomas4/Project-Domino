@@ -30,6 +30,10 @@ public class Player {
         return score;
     }
     
+    public ArrayList<Tile> getPlayerTiles() {
+        return playerTiles;
+    }
+    
     public void increaseScore(int points) {
         score += points;
         

@@ -32,6 +32,7 @@ public class Table {
     }
     
     public void addTile(Tile piece) {
+        //addTile receives tile after its rotation (if needed).
      
         if (piece.getNum2() == getLastTile().getNum1()) {
             tableTiles.add(0,piece);
