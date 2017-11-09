@@ -10,5 +10,10 @@ package maingame;
  * @author Sierra Kilo
  */
 public class Hungarian {
+    Heap heap;
+    
+    public Hungarian(){
+        heap = new Heap();
+    }
     
 }
