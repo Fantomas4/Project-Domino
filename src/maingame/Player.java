@@ -36,7 +36,7 @@ public class Player {
     }
     
     public Tile getHighestTile() {
-        
+        // (-1,-1) is a tile representing that the player has no tiles with num1 == num2
         Tile maxTile = new Tile(-1,-1);
         
         for (Tile piece : playerTiles) {
@@ -48,6 +48,12 @@ public class Player {
             
         }
         return maxTile;
+    }
+    
+    public void showPlayerTiles() {
+        for (Tile piece : playerTiles) {
+            System.out.printf("|%d %d|", piece.getNum1(), piece.getNum2());
+        }
     }
     
     
