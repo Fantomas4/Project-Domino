@@ -60,11 +60,13 @@ public class Player {
         return playerTiles.size();
     }
     
-    public Tile playTile(int choice) {
-        Tile pickedTile = playerTiles.get(choice-1);
-        playerTiles.remove(choice-1);
+    public Tile chooseTile(int choice) {
         
-        return pickedTile;
+        return playerTiles.get(choice-1);
+    }
+    
+    public void removeTile(int choice) {
+        playerTiles.remove(choice-1);
     }
     
 }
