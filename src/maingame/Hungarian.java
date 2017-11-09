@@ -45,20 +45,23 @@ public class Hungarian {
         do{
             playingNow = whoPlaysFirst();
             do{
-                if (playingNow == 1) {
-                    player.showPlayerTiles();
+                switch (playingNow) {
                     
-                    do{
-                       System.out.println("Choose which tile you want to play with (1-" + player.getPlayerTilesAmount());
-                       choice = input.nextInt(); 
-                    }while(choice < 1 || choice > player.getPlayerTilesAmount());
-                    
-                    table.addTile(player.playTile(choice));
-                    
-                    
+                    case 1: player.showPlayerTiles();
+                            do{
+                               System.out.println("Choose which tile you want to play with (1-" + player.getPlayerTilesAmount());
+                               choice = input.nextInt(); 
+                            }while(choice < 1 || choice > player.getPlayerTilesAmount());
+                            table.addTile(player.playTile(choice));
+                            break;
+
+                        
+                        
+                        
+                        
+                        
                 }
-                
-                
+
             }while(//round has not ended);
             
             

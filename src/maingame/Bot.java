@@ -20,7 +20,7 @@ public class Bot {
         score = 0;
     }
     
-    public void pickTiles(Heap heap) {
+    public void setTiles(Heap heap) {
         for(int i=1; i<=12 ; i++){
             botTiles.add(heap.pickRandomTile());
         }
