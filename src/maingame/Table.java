@@ -38,6 +38,7 @@ public class Table {
         }else if (getFirstTile().getNum2() == piece.getNum1()) {
             tableTiles.add(piece);
         }
+        //prepei na rotaei ton paikti poy na to valei se periptosi poy tairiazei kai stis 2 meries
     }
     
     public void showTable() {

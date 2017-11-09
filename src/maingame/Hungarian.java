@@ -5,6 +5,8 @@
  */
 package maingame;
 
+import java.util.Scanner;
+
 /**
  *
  * @author Sierra Kilo
@@ -33,6 +35,35 @@ public class Hungarian {
         } else{
             return 2;
         }
+    }
+    
+    public void run() {
+        int playingNow; //1 means player is playing, 2 means bot is playing.
+        Scanner input = new Scanner(System.in);
+        int choice;
+        
+        do{
+            playingNow = whoPlaysFirst();
+            do{
+                if (playingNow == 1) {
+                    player.showPlayerTiles();
+                    
+                    do{
+                       System.out.println("Choose which tile you want to play with (1-" + player.getPlayerTilesAmount());
+                       choice = input.nextInt(); 
+                    }while(choice < 1 || choice > player.getPlayerTilesAmount());
+                    
+                    table.addTile(player.playTile(choice));
+                    
+                    
+                }
+                
+                
+            }while(//round has not ended);
+            
+            
+            
+        }while(//score < 100);
     }
     
 }

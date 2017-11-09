@@ -20,7 +20,7 @@ public class Player {
         score = 0;
     }
     
-    public void pickTiles(Heap heap) {
+    public void setTiles(Heap heap) {
         for(int i=1; i<=12 ; i++){
             playerTiles.add(heap.pickRandomTile());
         }
@@ -56,5 +56,15 @@ public class Player {
         }
     }
     
+    public int getPlayerTilesAmount() {
+        return playerTiles.size();
+    }
+    
+    public Tile playTile(int choice) {
+        Tile pickedTile = playerTiles.get(choice-1);
+        playerTiles.remove(choice-1);
+        
+        return pickedTile;
+    }
     
 }
