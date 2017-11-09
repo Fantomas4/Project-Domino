@@ -7,6 +7,7 @@ package maingame;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Random;
 
 
 
@@ -67,6 +68,17 @@ public class Heap {
         ArrayList<Tile> column;
         column = heapTiles.get(choice-1);
         return column.get(column.size()-1);
+        
+        
+    }
+    
+    public Tile pickRandomTile() {
+        Random r1 = new Random();
+        int tileChoice = r1.nextInt(28);
+        Tile pickedTile = allTiles.get(tileChoice);
+        allTiles.remove(tileChoice);
+        
+        return pickedTile;
         
         
     }
