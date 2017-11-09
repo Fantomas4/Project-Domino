@@ -56,14 +56,14 @@ public class Hungarian {
                             choice = input.nextInt();
 
                             if (choice < 1 || choice > player.getPlayerTilesAmount()) {
-                                System.out.println("Wrong choice number! Choose a number from 1 to " + player.getPlayerTilesAmount());
+                                System.out.println("Wrong choice number!");
                                 //continue;
                             } else {
                                 chosenTile = player.chooseTile(choice);
 
                                 if (checkTileChoice(chosenTile) == 0) {
                                     System.out.println("Invalid move. Please try again!");
-                                    //continue;
+                                    //continue
                                 } else if (checkTileChoice(chosenTile) == 1) {
                                     table.addTile(chosenTile);
                                     player.removeTile(choice);
@@ -81,12 +81,7 @@ public class Hungarian {
                     case 2:
                         
 
-//                            do{
-//                               System.out.println("Choose which tile you want to play with (1-" + player.getPlayerTilesAmount());
-//                               choice = input.nextInt(); 
-//                            }while( (choice < 1 || choice > player.getPlayerTilesAmount()) && checkTileChoice() !=0 );
-//                            table.addTile(player.playTile(choice));
-//                            break;
+//                            
                 }
 
             } while (h partida den teleiose);
