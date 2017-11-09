@@ -17,6 +17,7 @@ public class Bot {
     
     public Bot() {
         botTiles = new ArrayList<>();
+        score = 0;
     }
     
     public void pickTiles(Heap heap) {
