@@ -74,7 +74,7 @@ public class Heap {
     
     public Tile pickRandomTile() {
         Random r1 = new Random();
-        int tileChoice = r1.nextInt(28);
+        int tileChoice = r1.nextInt(allTiles.size());
         Tile pickedTile = allTiles.get(tileChoice);
         allTiles.remove(tileChoice);
         
