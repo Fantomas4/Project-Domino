@@ -5,10 +5,18 @@
  */
 package maingame;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Sierra Kilo
  */
 public class Player {
+    ArrayList<Tile> playerTiles;
+    
+    public Player() {
+        playerTiles = new ArrayList<>();
+    }
+    
     
 }
