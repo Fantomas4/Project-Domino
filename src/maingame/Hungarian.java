@@ -11,9 +11,28 @@ package maingame;
  */
 public class Hungarian {
     Heap heap;
+    Table table;
+    Player player;
+    Bot bot;
     
     public Hungarian(){
         heap = new Heap();
+        table = new Table();
+        player = new Player();
+        bot = new Bot();
+    }
+    
+    private int whoPlaysFirst() {
+        //returns 1 if player is to play first. 
+        //returns 2 if bot is to play first
+        Tile playerTile = player.getHighestTile();
+        Tile botTile = bot.getHighestTile();
+        
+        if (playerTile.getNum1() > botTile.getNum1()) {
+            return 1;
+        } else{
+            return 2;
+        }
     }
     
 }
