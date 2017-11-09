@@ -55,7 +55,7 @@ public class Hungarian {
                             System.out.println("Choose which tile you want to play with (1-" + player.getPlayerTilesAmount());
                             choice = input.nextInt();
 
-                            if (choice < 1 || choice > 4) {
+                            if (choice < 1 || choice > player.getPlayerTilesAmount()) {
                                 System.out.println("Wrong choice number! Choose a number from 1 to " + player.getPlayerTilesAmount());
                                 //continue;
                             } else {
@@ -77,6 +77,9 @@ public class Hungarian {
                             }
 
                         } while (true);
+                        break;
+                    case 2:
+                        
 
 //                            do{
 //                               System.out.println("Choose which tile you want to play with (1-" + player.getPlayerTilesAmount());
@@ -86,12 +89,12 @@ public class Hungarian {
 //                            break;
                 }
 
-            } while (//round has not ended);
+            } while (h partida den teleiose);
             
             
             
         
-        } while (//score < 100);
+        } while (player.getScore() < 100 && bot.getScore() < 100);
     
     }
 
