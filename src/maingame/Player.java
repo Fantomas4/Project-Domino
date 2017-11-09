@@ -18,5 +18,11 @@ public class Player {
         playerTiles = new ArrayList<>();
     }
     
+    public void pickTiles(Heap heap) {
+        for(int i=1; i<=12 ; i++){
+            playerTiles.add(heap.pickRandomTile());
+        }
+    }
+    
     
 }
