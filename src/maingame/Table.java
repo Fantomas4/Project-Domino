@@ -6,6 +6,7 @@
 package maingame;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  *
@@ -33,8 +34,25 @@ public class Table {
     
     public void addTile(Tile piece) {
         //addTile receives tile after its rotation (if needed).
-     
-        if (piece.getNum2() == getLastTile().getNum1()) {
+        Scanner input = new Scanner(System.in);
+        String answer;
+        boolean acceptInput = false;
+        
+        if (piece.getNum2() == getLastTile().getNum1() && getFirstTile().getNum2() == piece.getNum1()){
+            System.out.println("There are two possible moves for this piece!");
+            System.out.println("Do you want to place the piece to the left or to the right?");
+            do{
+                answer = input.nextLine();
+                
+                if (answer.equals("left") || answer.equals("right")){
+                    acceptInput = true;
+                }else {
+                    System.out.println("Wrong entry! Please type left or right");
+                }   
+                
+            }while(acceptInput == false);
+            
+        }else if (piece.getNum2() == getLastTile().getNum1()) {
             tableTiles.add(0,piece);
         }else if (getFirstTile().getNum2() == piece.getNum1()) {
             tableTiles.add(piece);
