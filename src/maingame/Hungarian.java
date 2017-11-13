@@ -150,14 +150,12 @@ public class Hungarian {
                     playingNowIndex = 0;
                 }
 
-            } while (h 
-            partida den teleiose
-          );
+            } while (h partida den teleiose);
             
+            giveRoundPoints(); 
+    
             
-            
-            
-        } while (scoreLimitReached() == true);
+        } while (scoreLimitReached() == false);
 
     }
 
@@ -232,6 +230,7 @@ public class Hungarian {
         int minPoints = playerOrderedList.get(0).getRemainingTilePoints();
         int minPlayerIndex = 0;
         
+        // calculates the total sum of points of the tiles still in every player's hand.
         for (int i=1; i < playerOrderedList.size() ; i++) {
             
             totalPoints += playerOrderedList.get(i).getRemainingTilePoints();
@@ -239,10 +238,13 @@ public class Hungarian {
             if (playerOrderedList.get(i).getRemainingTilePoints() < minPoints) {
                 minPoints = playerOrderedList.get(i).getRemainingTilePoints();
                 minPlayerIndex = i;
-            }
-            
-            totalPoints -= playerOrderedList.get(minPlayerIndex).getRemainingTilePoints();
+            }        
         }
+        
+        totalPoints -= playerOrderedList.get(minPlayerIndex).getRemainingTilePoints(); //removes the points of the player that has the fewest points
+        //in his hand and is about to receive the totalPoints sum.
+        playerOrderedList.get(minPlayerIndex).increaseScore(totalPoints); //gives accumulated points to the
+        // player who has the fewest points.
         
         
         
