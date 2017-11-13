@@ -14,16 +14,28 @@ import java.util.ArrayList;
 public class Player {
     ArrayList<Tile> playerTiles;
     int score;
+    String name;
+    boolean bot;
+    Heap heap;
     
-    public Player() {
+    public Player(String name, String type) {
+        
+        heap = new Heap();
         playerTiles = new ArrayList<>();
-        score = 0;
-    }
-    
-    public void setTiles(Heap heap) {
+        
         for(int i=1; i<=12 ; i++){
             playerTiles.add(heap.pickRandomTile());
         }
+            
+        score = 0;
+        
+        if (type.equals("Human")) {
+            bot = false;
+        } else if (type.equals("Bot")) {
+            bot = true;
+        }
+        
+        this.name = name;
     }
     
     public int getScore() {
@@ -71,6 +83,16 @@ public class Player {
     
     public void removeTile(int choice) {
         playerTiles.remove(choice-1);
+    }
+    
+    public boolean isBot() {
+        return bot;
+    }
+    
+    public void botPlays() {
+        
+        // *** WORK IN PROGRESS ***
+        
     }
     
 }

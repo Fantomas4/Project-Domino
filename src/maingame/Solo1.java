@@ -5,6 +5,7 @@
  */
 package maingame;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -24,8 +25,10 @@ public class Solo1 {
 
     public void run() {
         Scanner input = new Scanner(System.in);
+        String answer;
         int choice;
         Tile chosenTile;
+        ArrayList<PossibleMove> result;
 
         do {
             System.out.println("Heap: ");
@@ -44,27 +47,63 @@ public class Solo1 {
                     //continue;
                 } else {
                     chosenTile = heap.chooseTile(choice);
+                    result = checkTileChoice(chosenTile);
+                    if (result.size() == 0) {
+                        //there is no possible move with the chosen tile.
+                        System.out.println("There is no possible move with the chosen tile! Try again!");
+                        //continue
+                    } else if (result.size() == 1) {
+                        //there is one possible move so tile is placed automatically
 
-                    if (checkTileChoice(chosenTile) == 0) {
-                        System.out.println("Invalid move. Please try again!");
-                        //continue;
-                    } else if (checkTileChoice(chosenTile) == 1) {
-                        table.addTile(chosenTile);
+                        if (result.get(0).needsRotation() == true) {
+                            chosenTile.rotateTile();
+                        }
+                        table.addTile(chosenTile, result.get(0).whereToPlace());
                         heap.removeTile(choice);
                         break;
-                    } else if (checkTileChoice(chosenTile) == 2) {
-                        chosenTile.rotateTile();
-                        table.addTile(chosenTile);
-                        heap.removeTile(choice);
-                        break;
+
+                    } else {
+                        //there are more 2 possible moves 
+                        //so user is asked about where to place tile
+
+                        System.out.println("There are 2 possible moves with this tile.");
+                        System.out.println("Do you want to place the tile left or right?");
+                        do {
+                            answer = input.nextLine();
+                            if (answer.equals("left") || answer.equals("right")) {
+                                break;
+                            } else {
+                                System.out.println("Please enter left or right as an answer.");
+                            }
+                        } while (true);
+
+                        if (result.get(0).whereToPlace().equals(answer)) {
+                            if (result.get(0).needsRotation() == true) {
+                                chosenTile.rotateTile();
+                            }
+                            table.addTile(chosenTile, answer);
+                            heap.removeTile(choice);
+                            break;
+
+                        } else if (result.get(1).whereToPlace().equals(answer)) {
+                            if (result.get(1).needsRotation() == true) {
+                                chosenTile.rotateTile();
+                            }
+                            table.addTile(chosenTile, answer);
+                            heap.removeTile(choice);
+                            break;
+                        }
+
                     }
+
                 }
 
             } while (true);
+ 
 
         } while (gameStatus() == 1); // 1: game in progress.
-        
-        if (gameStatus() == 0) {
+
+   if (gameStatus() == 0) {
             System.out.println("Game over! There are no possible moves left!");
         } else if (gameStatus() == 2) {
             System.out.println("Congratulations! You have won!");
@@ -72,51 +111,81 @@ public class Solo1 {
     }
 
     public boolean possibleMoveExists() {
+        ArrayList<PossibleMove> result;
         for (int i = 1; i < 5; i++) {
-            if (checkTileChoice(heap.chooseTile(i)) != 0) { //choose tile accepts int in range 1-4.
+            result = checkTileChoice(heap.chooseTile(i)); //choose tile accepts int in range 1-4.
+
+            if (result.size() > 0) { //if a list containing at least one possible move is returned
                 return true;
             }
         }
         return false;
     }
 
-    public int checkTileChoice(Tile piece) {
-        //result == 0 rejected choice
-        //result == 1 accepted choice
-        //result == 2 accepted choice but tile needs to rotate in order to be placed
+    public ArrayList<PossibleMove> checkTileChoice(Tile piece) {
 
-        //table is empty and we are placing the first tile.
+        ArrayList<PossibleMove> result = new ArrayList<>();
+
         if (table.getSize() == 0) {
-
-            return 1;
-
-            //there are already tiles placed on the table.
-        } else if (piece.getNum1() == table.getFirstTile().getNum1()) {
-            return 2;
-        } else if (piece.getNum2() == table.getFirstTile().getNum1()) {
-            return 1;
-        } else if (piece.getNum1() == table.getLastTile().getNum2()) {
-            return 1;
-        } else if (piece.getNum2() == table.getLastTile().getNum2()) {
-            return 2;
-
-            //incorrect tile choice from heap incompatible with table
+            //table is empty and we are placing the first tile.
+            result.add(new PossibleMove(false, "left")); // no rotation needed, tile can be placed on both sides
         } else {
-            return 0;
+
+            if (piece.getNum1() == table.getFirstTile().getNum1()) {
+                result.add(new PossibleMove(true, "left"));
+
+            } else if (piece.getNum2() == table.getFirstTile().getNum1()) {
+                result.add(new PossibleMove(false, "left"));
+
+            }
+
+            if (piece.getNum1() == table.getLastTile().getNum2()) {
+                result.add(new PossibleMove(false, "right"));
+            } else if (piece.getNum2() == table.getLastTile().getNum2()) {
+                result.add(new PossibleMove(true, "right"));
+            }
         }
-
+        return result;
     }
+    //returns empty ArrayList if there is no possible move.
 
-//    public boolean moveExists(Table table) {
-//
-//        for(int i=1; i<5 ; i++) {
-//            if (checkTile(heap.chooseTile(i),0) == true || checkTile(heap.chooseTile(i),1)== true ){
-//                return true;
-//            } 
-//        }
-//        return false;
-//    }
-//    
+    //returns ArrayList that contains the objects describing the possible moves, 
+    //if possible move exists.
+    //
+    //            return 1;
+    //
+    //            //there are already tiles placed on the table.
+    //        }
+    //        if (table.getSize() == 0) {
+    //
+    //            return 1;
+    //
+    //            //there are already tiles placed on the table.
+    //        } else if (piece.getNum1() == table.getFirstTile().getNum1()) {
+    //            return 2;
+    //        } else if (piece.getNum2() == table.getFirstTile().getNum1()) {
+    //            return 1;
+    //        } else if (piece.getNum1() == table.getLastTile().getNum2()) {
+    //            return 1;
+    //        } else if () {
+    //            return 2;
+    //
+    //            //incorrect tile choice from heap incompatible with table
+    //        } else {
+    //            return 0;
+    //        }
+    //
+    //    }
+    //    public boolean moveExists(Table table) {
+    //
+    //        for(int i=1; i<5 ; i++) {
+    //            if (checkTile(heap.chooseTile(i),0) == true || checkTile(heap.chooseTile(i),1)== true ){
+    //                return true;
+    //            } 
+    //        }
+    //        return false;
+    //    }
+    //  
     public int gameStatus() {
         //0 == gameover, 1 = in progress, 2 = win
         //MPOREI NA SIKONEI KAI VELTIOSI ALGORITHMOU

@@ -5,6 +5,9 @@
  */
 package maingame;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 /**
@@ -13,139 +16,222 @@ import java.util.Scanner;
  */
 public class Hungarian {
 
+    int gamemode; //2: two players (one human, one bot), 3: 3 players (one human, two bots) etc.
     Heap heap;
     Table table;
-    Player player;
-    Bot bot;
-
-    public Hungarian() {
+    ArrayList<Player> playerOrderedList; //The first position of the list containes the player that is to play now.
+    Player playingNowObj;
+    Player winner;
+    
+    
+    
+    public Hungarian(int mode) {
+        gamemode = mode;
         heap = new Heap();
         table = new Table();
-        player = new Player();
-        bot = new Bot();
+        playerOrderedList = new ArrayList<>();
+        playerOrderedList.add(new Player("Human","Human"));
+
+        for (int i = 1; i < gamemode; i++) {
+            //adds as many bots to playerlist as the chosen game mode needs.
+            playerOrderedList.add(new Player("Bot" + i,"Bot"));
+        }
+
     }
 
-    private int whoPlaysFirst() {
-        //returns 1 if player is to play first. 
-        //returns 2 if bot is to play first
-        Tile playerTile = player.getHighestTile();
-        Tile botTile = bot.getHighestTile();
-
-        if (playerTile.getNum1() > botTile.getNum1()) {
-            return 1;
-        } else {
-            return 2;
+    private ArrayList<Player> orderPlayers() {
+        
+        Player firstPlayer = playerOrderedList.get(0); //gets the first player ( the Human) for the 
+        //ordered player list and initializes the firstPlayer with him.
+        Player temp; //used as temporary storage for changing Player object order in playerOrderedList
+        
+        for (int i=0 ; i < playerOrderedList.size() ; i++) {
+            if (playerOrderedList.get(i).getHighestTile().getNum1() > firstPlayer.getHighestTile().getNum1()) {
+                temp = playerOrderedList.get(i);
+                playerOrderedList.remove(i);
+                playerOrderedList.add(0,temp);
+                i--; //we want to check the same index position again after any changes to the order are made
+            }
         }
+      
     }
 
     public void run() {
-        int playingNow; //1 means player is playing, 2 means bot is playing.
+
         Scanner input = new Scanner(System.in);
+        String answer;
         int choice;
         Tile chosenTile;
+        ArrayList<PossibleMove> result;
 
         do {
-            playingNow = whoPlaysFirst();
+            playingNowObj = playerOrderedList.get(0);
             do {
-                switch (playingNow) {
+                table.showTable(); 
+                System.out.println("%n%n");
+                
+                if (playingNowObj.isBot() == true) {
+                    //the player that plays now is a bot
 
-                    case 1:
-                        player.showPlayerTiles();
-                        do {
-                            System.out.println("Choose which tile you want to play with (1-" + player.getPlayerTilesAmount());
-                            choice = input.nextInt();
+                    // ****** WORK IN PROGRESS ******* 
+                } else {
+                    //the player that plays now is Human
+                    playingNowObj.showPlayerTiles();
 
-                            if (choice < 1 || choice > player.getPlayerTilesAmount()) {
-                                System.out.println("Wrong choice number!");
-                                //continue;
-                            } else {
-                                chosenTile = player.chooseTile(choice);
+                    do {
+                        System.out.println("Choose which tile you want to play with (1-" + playingNowObj.getPlayerTilesAmount());
+                        choice = input.nextInt();
 
-                                if (checkTileChoice(chosenTile) == 0) {
-                                    System.out.println("Invalid move. Please try again!");
-                                    //continue
-                                } else if (checkTileChoice(chosenTile) == 1) {
-                                    table.addTile(chosenTile);
-                                    player.removeTile(choice);
-                                    break;
-                                } else if (checkTileChoice(chosenTile) == 2) {
+                        if (choice < 1 || choice > playingNowObj.getPlayerTilesAmount()) {
+                            System.out.println("Wrong choice number!");
+                            //continue;
+                        } else {
+                            chosenTile = playingNowObj.chooseTile(choice);
+                            result = checkTileChoice(chosenTile);
+                            if (result.size() == 0) {
+                                //there is no possible move with the chosen tile.
+                                System.out.println("There is no possible move with the chosen tile! Try again!");
+                                //continue
+                            } else if (result.size() == 1) {
+                                //there is one possible move so tile is placed automatically
+
+                                if (result.get(0).needsRotation() == true) {
                                     chosenTile.rotateTile();
-                                    table.addTile(chosenTile);
-                                    player.removeTile(choice);
+                                }
+                                table.addTile(chosenTile, result.get(0).whereToPlace());
+                                playingNowObj.removeTile(choice); //removes tile from player's hand.
+                                break;
+
+                            } else {
+                                //there are more 2 possible moves 
+                                //so user is asked about where to place tile
+
+                                System.out.println("There are 2 possible moves with this tile.");
+                                System.out.println("Do you want to place the tile left or right?");
+                                do {
+                                    answer = input.nextLine();
+                                    if (answer.equals("left") || answer.equals("right")) {
+                                        break;
+                                    } else {
+                                        System.out.println("Please enter left or right as an answer.");
+                                    }
+                                } while (true);
+
+                                if (result.get(0).whereToPlace().equals(answer)) {
+                                    if (result.get(0).needsRotation() == true) {
+                                        chosenTile.rotateTile();
+                                    }
+                                    table.addTile(chosenTile, answer);
+                                    playingNowObj.removeTile(choice); //removes tile from player's hand.
+                                    break;
+
+                                } else if (result.get(1).whereToPlace().equals(answer)) {
+                                    if (result.get(1).needsRotation() == true) {
+                                        chosenTile.rotateTile();
+                                    }
+                                    table.addTile(chosenTile, answer);
+                                    playingNowObj.removeTile(choice); //removes tile from player's hand
                                     break;
                                 }
+
                             }
 
-                        } while (true);
-                        break;
+                        }
+
+                    } while (true);
+
                         
-                    case 2:
-
-//                            
                 }
-
-            } while (h 
-            partida den teleiose
-          );
+                
+            } while (h partida den teleiose);
             
             
-            
+        } while (scoreLimitReached() == true);
         
-        } while (player.getScore() < 100 && bot.getScore() < 100);
-
-    }
-
-    public int checkTileChoice(Tile piece) {
-        //result == 0 rejected choice
-        //result == 1 accepted choice
-        //result == 2 accepted choice but tile needs to rotate in order to be placed
-
-        //table is empty and we are placing the first tile.
-        if (table.getSize() == 0) {
-
-            return 1;
-
-            //there are already tiles placed on the table.
-        } else if (piece.getNum1() == table.getFirstTile().getNum1()) {
-            return 2;
-        } else if (piece.getNum2() == table.getFirstTile().getNum1()) {
-            return 1;
-        } else if (piece.getNum1() == table.getLastTile().getNum2()) {
-            return 1;
-        } else if (piece.getNum2() == table.getLastTile().getNum2()) {
-            return 2;
-
-            //incorrect tile choice from heap incompatible with table
-        } else {
-            return 0;
-        }
-
-    }
     
-    public boolean possibleMoveExists() {
-        for (int i = 1; i <= player.getPlayerTilesAmount(); i++) {
-            if (checkTileChoice(player.chooseTile(i)) != 0) { //choose tile accepts int in range 1-4.
+    }
+
+    public ArrayList<PossibleMove> checkTileChoice(Tile piece) {
+
+        ArrayList<PossibleMove> result = new ArrayList<>();
+
+        if (table.getSize() == 0) {
+            //table is empty and we are placing the first tile.
+            result.add(new PossibleMove(false, "left")); // no rotation needed, tile can be placed on both sides
+        } else {
+
+            if (piece.getNum1() == table.getFirstTile().getNum1()) {
+                result.add(new PossibleMove(true, "left"));
+
+            } else if (piece.getNum2() == table.getFirstTile().getNum1()) {
+                result.add(new PossibleMove(false, "left"));
+
+            }
+
+            if (piece.getNum1() == table.getLastTile().getNum2()) {
+                result.add(new PossibleMove(false, "right"));
+            } else if (piece.getNum2() == table.getLastTile().getNum2()) {
+                result.add(new PossibleMove(true, "right"));
+            }
+        }
+        return result;
+    }
+
+    public boolean possibleMoveExists(Player subject) {
+        ArrayList<PossibleMove> result;
+        ArrayList<Tile> playerTiles;
+
+        playerTiles = subject.getPlayerTiles();
+
+        for (Tile piece : playerTiles) {
+            result = checkTileChoice(piece);
+            if (result.size() > 0) {
+                //there is at least one possible move 
                 return true;
             }
         }
         return false;
     }
 
-    public int gameStatus() {
-        //0 == gameover, 1 == player plays next, 2 == bot plays next
+    public int roundStatus() {
+        //0: end round, 1: player has the next move, 2: bot has the next move
         //MPOREI NA SIKONEI KAI VELTIOSI ALGORITHMOU
-        int result = 0;
-        
-        if (possibleMoveExists(player))
 
-//        if (table.getSize() == 28) {
-//            result = 2;
-//        } else if (table.getSize() < 28 && possibleMoveExists() == true) {
-//            result = 1;
-//        } else if (table.getSize() < 28 && possibleMoveExists() == false) {
-//            result = 0;
+        
+        // **** WORK IN PROGRESS **** 
+        
+        
+        
+        
+//        if (playingNow == 1) {
+//            if (possibleMoveExists(player) == true) {
+//                return 1;
+//            } else if (possibleMoveExists(bot) == true) {
+//                return 2;
+//            }
+//
+//        } else if (playingNow == 2) {
+//            if (possibleMoveExists(bot) == true) {
+//                return 2;
+//            } else if (possibleMoveExists(player) == true) {
+//                return 1;
+//            }
 //        }
-        return result;
+//
+//        return 0; //no possible move for neither player nor bot.
+
+    }
+    
+    public boolean scoreLimitReached() {
+        for (Player obj : playerOrderedList) {
+            if (obj.getScore() >= 100) {
+                winner = obj;
+                return true;
+            }
+        }
+        return false;
+        
+        
     }
 
 }
