@@ -21,8 +21,8 @@ public class Hungarian {
     Table table;
     ArrayList<Player> playerOrderedList; //The first position of the list containes the player that is to play now.
     Player playingNowObj;
-    int playingNowIndex;
-    Player winner;
+    int playingNowIndex; 
+    Player winner; // holds the Player object of the winner set by scoreLimitReached() func.
 
     public Hungarian(int mode) {
         gamemode = mode;
@@ -40,7 +40,6 @@ public class Hungarian {
 
     private int firstPlayerIndex() {
 
-        // *** WORK IN PROGRESS ***
         Player firstPlayer = playerOrderedList.get(0); //gets the first player ( the Human) for the 
         //ordered player list and initializes the firstPlayer with him.
         int index = 0; // position of the player playing first in the playerOrderedList
@@ -142,20 +141,30 @@ public class Hungarian {
 
                 }
 
-                // sets the player index for the player who is to play next.
-                // if we have already reached the last player in the PlayerList,
-                // the index is reset to the first player (index = 0 ).
-                playingNowIndex++;
-                if (playingNowIndex == playerOrderedList.size()) {
-                    playingNowIndex = 0;
-                }
+//                // sets the player index for the player who is to play next.
+//                // if we have already reached the last player in the PlayerList,
+//                // the index is reset to the first player (index = 0 ).
+//                playingNowIndex++;
+//                if (playingNowIndex == playerOrderedList.size()) {
+//                    playingNowIndex = 0;
+//                }
 
-            } while (h partida den teleiose);
+                playingNowIndex = whoPlaysNext();
+
+            } while (playingNowIndex >= 0);
             
-            giveRoundPoints(); 
-    
-            
+            giveRoundPoints();
+
         } while (scoreLimitReached() == false);
+        
+//        for (Player obj : playerOrderedList) {
+//            if (obj.getScore() >= 100) {
+//                System.out.println("*** Player " + obj.getPlayerName() + " has won the game! ***");
+//                break;
+//            }
+//        }
+        
+        System.out.println("*** Player " + winner.getPlayerName() + " has won the game! ***");
 
     }
 
@@ -201,54 +210,65 @@ public class Hungarian {
         return false;
     }
 
-    public int roundStatus() {
-        //0: end round, 1: player has the next move, 2: bot has the next move
-        //MPOREI NA SIKONEI KAI VELTIOSI ALGORITHMOU
+    public int whoPlaysNext() {
 
         // **** WORK IN PROGRESS **** 
-//        if (playingNow == 1) {
-//            if (possibleMoveExists(player) == true) {
-//                return 1;
-//            } else if (possibleMoveExists(bot) == true) {
-//                return 2;
-//            }
-//
-//        } else if (playingNow == 2) {
-//            if (possibleMoveExists(bot) == true) {
-//                return 2;
-//            } else if (possibleMoveExists(player) == true) {
-//                return 1;
-//            }
-//        }
-//
-//        return 0; //no possible move for neither player nor bot.
+        // returns index of playerOrderedList for the player that is to play next or -1 if no player has a possible move.
+        int resultIndex = -1;
+
+        if (possibleMoveExists(playerOrderedList.get(playingNowIndex)) == true) {
+            //first we check if the player who plays now has a possible move.
+            resultIndex = playingNowIndex;
+        } else {
+            int indexLimit = playerOrderedList.size() - 1; // last index number
+            int pos = playingNowIndex++; // we begin from the immediate next index from the index of the player playing now.
+            //then we search in the order of the playerOrderedList for the first player that has a possible move.
+            int loops = 0; // counter - number of times the do-while loop below has been executed
+
+            do {
+                if (pos > indexLimit) {
+                    // if we reach the last true index number, we reset the pos to 0 index.
+                    pos = 0;
+                }
+
+                if (possibleMoveExists(playerOrderedList.get(pos)) == true) {
+                    resultIndex = pos;
+                    break;
+                } else {
+                    pos++;
+                }
+
+                loops++;
+
+            } while (loops < playerOrderedList.size() - 1); // we check playerOrderedList.size() - 1 times since we have already 
+            //checked whether the playingNowIndex player had a move using the initial if statement at the beginning of the function.               
+        }
+
+        return resultIndex;
+
     }
 
     public void giveRoundPoints() {
-        
+
         int totalPoints = 0;
         int minPoints = playerOrderedList.get(0).getRemainingTilePoints();
         int minPlayerIndex = 0;
-        
+
         // calculates the total sum of points of the tiles still in every player's hand.
-        for (int i=1; i < playerOrderedList.size() ; i++) {
-            
+        for (int i = 1; i < playerOrderedList.size(); i++) {
+
             totalPoints += playerOrderedList.get(i).getRemainingTilePoints();
-            
+
             if (playerOrderedList.get(i).getRemainingTilePoints() < minPoints) {
                 minPoints = playerOrderedList.get(i).getRemainingTilePoints();
                 minPlayerIndex = i;
-            }        
+            }
         }
-        
+
         totalPoints -= playerOrderedList.get(minPlayerIndex).getRemainingTilePoints(); //removes the points of the player that has the fewest points
         //in his hand and is about to receive the totalPoints sum.
         playerOrderedList.get(minPlayerIndex).increaseScore(totalPoints); //gives accumulated points to the
         // player who has the fewest points.
-        
-        
-        
-
 
     }
 

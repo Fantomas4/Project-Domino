@@ -42,6 +42,10 @@ public class Player {
         return score;
     }
     
+    public String getPlayerName() {
+        return name;
+    }
+    
     public ArrayList<Tile> getPlayerTiles() {
         return playerTiles;
     }
