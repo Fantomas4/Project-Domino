@@ -46,6 +46,15 @@ public class Player {
         return playerTiles;
     }
     
+    public int getRemainingTilePoints() {
+        int sum = 0;
+        
+        for (Tile piece : playerTiles) {
+            sum += piece.getNum1() + piece.getNum2();
+        }
+        return sum;
+    }
+    
     public void increaseScore(int points) {
         score += points;
         

@@ -23,40 +23,36 @@ public class Hungarian {
     Player playingNowObj;
     int playingNowIndex;
     Player winner;
-    
-    
-    
+
     public Hungarian(int mode) {
         gamemode = mode;
         heap = new Heap();
         table = new Table();
         playerOrderedList = new ArrayList<>();
-        playerOrderedList.add(new Player("Human","Human"));
+        playerOrderedList.add(new Player("Human", "Human"));
 
         for (int i = 1; i < gamemode; i++) {
             //adds as many bots to playerlist as the chosen game mode needs.
-            playerOrderedList.add(new Player("Bot" + i,"Bot"));
+            playerOrderedList.add(new Player("Bot" + i, "Bot"));
         }
 
     }
 
     private int firstPlayerIndex() {
-        
+
         // *** WORK IN PROGRESS ***
-        
         Player firstPlayer = playerOrderedList.get(0); //gets the first player ( the Human) for the 
         //ordered player list and initializes the firstPlayer with him.
         int index = 0; // position of the player playing first in the playerOrderedList
-        
-        
-        for (int i=1 ; i < playerOrderedList.size() ; i++) {
+
+        for (int i = 1; i < playerOrderedList.size(); i++) {
             if (playerOrderedList.get(i).getHighestTile().getNum1() > firstPlayer.getHighestTile().getNum1()) {
                 firstPlayer = playerOrderedList.get(i);
                 index = i;
             }
         }
-        return index; 
-      
+        return index;
+
     }
 
     public void run() {
@@ -71,9 +67,9 @@ public class Hungarian {
             playingNowIndex = firstPlayerIndex();
             playingNowObj = playerOrderedList.get(playingNowIndex);
             do {
-                table.showTable(); 
+                table.showTable();
                 System.out.println("%n%n");
-                
+
                 if (playingNowObj.isBot() == true) {
                     //the player that plays now is a bot
 
@@ -144,24 +140,25 @@ public class Hungarian {
 
                     } while (true);
 
-                        
                 }
-                
+
                 // sets the player index for the player who is to play next.
                 // if we have already reached the last player in the PlayerList,
                 // the index is reset to the first player (index = 0 ).
-                
                 playingNowIndex++;
                 if (playingNowIndex == playerOrderedList.size()) {
                     playingNowIndex = 0;
                 }
-                
-            } while (h partida den teleiose);
+
+            } while (h 
+            partida den teleiose
+          );
+            
+            
             
             
         } while (scoreLimitReached() == true);
-        
-    
+
     }
 
     public ArrayList<PossibleMove> checkTileChoice(Tile piece) {
@@ -210,12 +207,7 @@ public class Hungarian {
         //0: end round, 1: player has the next move, 2: bot has the next move
         //MPOREI NA SIKONEI KAI VELTIOSI ALGORITHMOU
 
-        
         // **** WORK IN PROGRESS **** 
-        
-        
-        
-        
 //        if (playingNow == 1) {
 //            if (possibleMoveExists(player) == true) {
 //                return 1;
@@ -232,9 +224,32 @@ public class Hungarian {
 //        }
 //
 //        return 0; //no possible move for neither player nor bot.
+    }
+
+    public void giveRoundPoints() {
+        
+        int totalPoints = 0;
+        int minPoints = playerOrderedList.get(0).getRemainingTilePoints();
+        int minPlayerIndex = 0;
+        
+        for (int i=1; i < playerOrderedList.size() ; i++) {
+            
+            totalPoints += playerOrderedList.get(i).getRemainingTilePoints();
+            
+            if (playerOrderedList.get(i).getRemainingTilePoints() < minPoints) {
+                minPoints = playerOrderedList.get(i).getRemainingTilePoints();
+                minPlayerIndex = i;
+            }
+            
+            totalPoints -= playerOrderedList.get(minPlayerIndex).getRemainingTilePoints();
+        }
+        
+        
+        
+
 
     }
-    
+
     public boolean scoreLimitReached() {
         for (Player obj : playerOrderedList) {
             if (obj.getScore() >= 100) {
@@ -243,8 +258,7 @@ public class Hungarian {
             }
         }
         return false;
-        
-        
+
     }
 
 }
