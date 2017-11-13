@@ -21,6 +21,7 @@ public class Hungarian {
     Table table;
     ArrayList<Player> playerOrderedList; //The first position of the list containes the player that is to play now.
     Player playingNowObj;
+    int playingNowIndex;
     Player winner;
     
     
@@ -39,20 +40,22 @@ public class Hungarian {
 
     }
 
-    private ArrayList<Player> orderPlayers() {
+    private int firstPlayerIndex() {
+        
+        // *** WORK IN PROGRESS ***
         
         Player firstPlayer = playerOrderedList.get(0); //gets the first player ( the Human) for the 
         //ordered player list and initializes the firstPlayer with him.
-        Player temp; //used as temporary storage for changing Player object order in playerOrderedList
+        int index = 0; // position of the player playing first in the playerOrderedList
         
-        for (int i=0 ; i < playerOrderedList.size() ; i++) {
+        
+        for (int i=1 ; i < playerOrderedList.size() ; i++) {
             if (playerOrderedList.get(i).getHighestTile().getNum1() > firstPlayer.getHighestTile().getNum1()) {
-                temp = playerOrderedList.get(i);
-                playerOrderedList.remove(i);
-                playerOrderedList.add(0,temp);
-                i--; //we want to check the same index position again after any changes to the order are made
+                firstPlayer = playerOrderedList.get(i);
+                index = i;
             }
         }
+        return index; 
       
     }
 
@@ -65,7 +68,8 @@ public class Hungarian {
         ArrayList<PossibleMove> result;
 
         do {
-            playingNowObj = playerOrderedList.get(0);
+            playingNowIndex = firstPlayerIndex();
+            playingNowObj = playerOrderedList.get(playingNowIndex);
             do {
                 table.showTable(); 
                 System.out.println("%n%n");
@@ -141,6 +145,15 @@ public class Hungarian {
                     } while (true);
 
                         
+                }
+                
+                // sets the player index for the player who is to play next.
+                // if we have already reached the last player in the PlayerList,
+                // the index is reset to the first player (index = 0 ).
+                
+                playingNowIndex++;
+                if (playingNowIndex == playerOrderedList.size()) {
+                    playingNowIndex = 0;
                 }
                 
             } while (h partida den teleiose);
