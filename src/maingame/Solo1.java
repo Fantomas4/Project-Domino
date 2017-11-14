@@ -34,10 +34,7 @@ public class Solo1 {
             System.out.println("Heap: ");
             heap.showHeap();
             System.out.printf("%n%n%n");
-            System.out.println("Table: ");
-            table.showTable();
-            System.out.printf("%n%n%n");
-
+            
             do {
                 System.out.println("Enter the row from which you want to take the Tile (1-4): ");
                 choice = input.nextInt();
@@ -99,7 +96,10 @@ public class Solo1 {
                 }
 
             } while (true);
- 
+            
+            System.out.println("Table: ");
+            table.showTable();
+            System.out.printf("%n%n%n");
 
         } while (gameStatus() == 1); // 1: game in progress.
 
