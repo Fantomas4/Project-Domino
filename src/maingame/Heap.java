@@ -50,9 +50,9 @@ public class Heap {
             ArrayList<Tile> column = heapTiles.get(i);
             for (int j=0; j<column.size() ; j++) {
                 Tile piece = column.get(j);
-                System.out.printf("%d %d|",piece.getNum1(),piece.getNum2());  
+                System.out.printf("|%d %d| ",piece.getNum1(),piece.getNum2());  
             }
-            System.out.println("%n");
+            System.out.printf("%n%n");
         }
     }
   
