@@ -23,9 +23,9 @@ public class Heap {
     
     public Heap() {
         allTiles = new ArrayList<>();
-        for (int i=0; i<6; i++) {
+        for (int i=0; i<=6; i++) {
             //fills up the AllTiles ArrayList with all the existing domino pieces.
-            for (int j=i; j<6; j++) {
+            for (int j=i; j<=6; j++) {
                 Tile Piece = new Tile(i,j);
                 allTiles.add(Piece);
             }
