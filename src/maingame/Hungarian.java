@@ -63,15 +63,18 @@ public class Hungarian {
         ArrayList<PossibleMove> result;
 
         do {
-            System.out.println("MPHKA!!!!");
+            //System.out.println("LOOP 1");
             playingNowIndex = firstPlayerIndex();
             playingNowObj = playerOrderedList.get(playingNowIndex);
+            
             do {
-                System.out.println("MPHKA2");
+                //System.out.println("LOOP 2");
+                System.out.println("*** Player: " + playingNowObj.getPlayerName() + " is playing now. ***");
                 table.showTable();
                 System.out.printf("%n%n");
 
                 if (playingNowObj.isBot() == true) {
+                    System.out.println("^^^^DIAG: I AM A BOT!");
 
                     // ****** WORK IN PROGRESS ******* 
                     //the player that plays now is a bot
@@ -80,9 +83,11 @@ public class Hungarian {
                     Tile botChosenTile;
 
                     for (int i = 0; i < botTiles.size(); i++) {
+                        //System.out.println("LOOP 3");
                         botChosenTile = botTiles.get(i);
                         botResult = checkTileChoice(botChosenTile);
                         if (botResult.size() > 0) {
+                            //System.out.println("DOMI IF 1");
                             // if at least one move exists for the selected bot tile.
                             if (botResult.get(0).needsRotation() == true) {
                                 botChosenTile.rotateTile();
@@ -96,8 +101,10 @@ public class Hungarian {
                 } else {
                     //the player that plays now is Human
                     playingNowObj.showPlayerTiles();
+                    System.out.printf("%n%n");
 
                     do {
+                        //System.out.println("LOOP 4");
                         System.out.printf("%n%n");
                         System.out.println("Choose which tile you want to play with (1-" + playingNowObj.getPlayerTilesAmount() + ")");
                         choice = input.nextInt();
@@ -170,10 +177,13 @@ public class Hungarian {
 //                    playingNowIndex = 0;
 //                }
                 playingNowIndex = whoPlaysNext();
+                System.out.println("^^^ DIAG: playingNowIndex: " + playingNowIndex);
 
             } while (playingNowIndex >= 0);
 
             giveRoundPoints();
+            System.out.println("*** END OF ROUND! ***");
+            table.clearTable();
 
         } while (scoreLimitReached() == false);
 

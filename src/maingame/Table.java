@@ -43,6 +43,10 @@ public class Table {
         }
 
     }
+    
+    public void clearTable() {
+        tableTiles.clear();
+    }
 
     public void showTable() {
         for (Tile piece : tableTiles) {
