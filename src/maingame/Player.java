@@ -95,17 +95,12 @@ public class Player {
     }
     
     public void removeTile(int choice) {
+        // choice index 1 - amount of player tiles
         playerTiles.remove(choice-1);
     }
     
     public boolean isBot() {
         return bot;
-    }
-    
-    public void botPlays() {
-        
-        // *** WORK IN PROGRESS ***
-        
     }
     
 }

@@ -21,7 +21,7 @@ public class Hungarian {
     Table table;
     ArrayList<Player> playerOrderedList; //The first position of the list containes the player that is to play now.
     Player playingNowObj;
-    int playingNowIndex; 
+    int playingNowIndex;
     Player winner; // holds the Player object of the winner set by scoreLimitReached() func.
 
     public Hungarian(int mode) {
@@ -70,9 +70,31 @@ public class Hungarian {
                 System.out.println("%n%n");
 
                 if (playingNowObj.isBot() == true) {
+                    
+                    // ****** WORK IN PROGRESS ******* 
+                    
                     //the player that plays now is a bot
 
-                    // ****** WORK IN PROGRESS ******* 
+                    ArrayList<Tile> botTiles = playingNowObj.getPlayerTiles();
+                    ArrayList<PossibleMove> botResult;
+                    Tile botChosenTile;
+
+                    for (int i = 0; i < botTiles.size(); i++) {
+                        do {
+                            botChosenTile = botTiles.get(i);
+                            botResult = checkTileChoice(botChosenTile);
+                            if (botResult.size() > 0) {
+                                // if at least one move exists for the selected bot tile.
+                                if (botResult.get(0).needsRotation() == true) {
+                                    botChosenTile.rotateTile();
+                                }
+                                table.addTile(botChosenTile, botResult.get(0).whereToPlace());
+                                playingNowObj.removeTile(i + 1); //removes tile from player's hand.
+                                break;
+                            }
+                        } while (true);
+                    }
+                    
                 } else {
                     //the player that plays now is Human
                     playingNowObj.showPlayerTiles();
@@ -148,22 +170,20 @@ public class Hungarian {
 //                if (playingNowIndex == playerOrderedList.size()) {
 //                    playingNowIndex = 0;
 //                }
-
                 playingNowIndex = whoPlaysNext();
 
             } while (playingNowIndex >= 0);
-            
+
             giveRoundPoints();
 
         } while (scoreLimitReached() == false);
-        
+
 //        for (Player obj : playerOrderedList) {
 //            if (obj.getScore() >= 100) {
 //                System.out.println("*** Player " + obj.getPlayerName() + " has won the game! ***");
 //                break;
 //            }
 //        }
-        
         System.out.println("*** Player " + winner.getPlayerName() + " has won the game! ***");
 
     }
@@ -212,7 +232,6 @@ public class Hungarian {
 
     public int whoPlaysNext() {
 
-        // **** WORK IN PROGRESS **** 
         // returns index of playerOrderedList for the player that is to play next or -1 if no player has a possible move.
         int resultIndex = -1;
 
