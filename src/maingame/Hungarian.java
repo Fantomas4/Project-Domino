@@ -63,44 +63,43 @@ public class Hungarian {
         ArrayList<PossibleMove> result;
 
         do {
+            System.out.println("MPHKA!!!!");
             playingNowIndex = firstPlayerIndex();
             playingNowObj = playerOrderedList.get(playingNowIndex);
             do {
+                System.out.println("MPHKA2");
                 table.showTable();
-                System.out.println("%n%n");
+                System.out.printf("%n%n");
 
                 if (playingNowObj.isBot() == true) {
-                    
-                    // ****** WORK IN PROGRESS ******* 
-                    
-                    //the player that plays now is a bot
 
+                    // ****** WORK IN PROGRESS ******* 
+                    //the player that plays now is a bot
                     ArrayList<Tile> botTiles = playingNowObj.getPlayerTiles();
                     ArrayList<PossibleMove> botResult;
                     Tile botChosenTile;
 
                     for (int i = 0; i < botTiles.size(); i++) {
-                        do {
-                            botChosenTile = botTiles.get(i);
-                            botResult = checkTileChoice(botChosenTile);
-                            if (botResult.size() > 0) {
-                                // if at least one move exists for the selected bot tile.
-                                if (botResult.get(0).needsRotation() == true) {
-                                    botChosenTile.rotateTile();
-                                }
-                                table.addTile(botChosenTile, botResult.get(0).whereToPlace());
-                                playingNowObj.removeTile(i + 1); //removes tile from player's hand.
-                                break;
+                        botChosenTile = botTiles.get(i);
+                        botResult = checkTileChoice(botChosenTile);
+                        if (botResult.size() > 0) {
+                            // if at least one move exists for the selected bot tile.
+                            if (botResult.get(0).needsRotation() == true) {
+                                botChosenTile.rotateTile();
                             }
-                        } while (true);
+                            table.addTile(botChosenTile, botResult.get(0).whereToPlace());
+                            playingNowObj.removeTile(i + 1); //removes tile from player's hand.
+                            break;
+                        }
                     }
-                    
+
                 } else {
                     //the player that plays now is Human
                     playingNowObj.showPlayerTiles();
 
                     do {
-                        System.out.println("Choose which tile you want to play with (1-" + playingNowObj.getPlayerTilesAmount());
+                        System.out.printf("%n%n");
+                        System.out.println("Choose which tile you want to play with (1-" + playingNowObj.getPlayerTilesAmount() + ")");
                         choice = input.nextInt();
 
                         if (choice < 1 || choice > playingNowObj.getPlayerTilesAmount()) {

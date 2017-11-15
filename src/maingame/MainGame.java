@@ -17,8 +17,11 @@ public class MainGame {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Solo1 gameInstance = new Solo1();
-        gameInstance.run();
+//        Solo1 gameInstance = new Solo1();
+//        gameInstance.run();
+          Hungarian gameInstance = new Hungarian(2);
+          gameInstance.run();
+          
 
     }
 
