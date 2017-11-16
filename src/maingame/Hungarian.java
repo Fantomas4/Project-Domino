@@ -23,17 +23,30 @@ public class Hungarian {
     Player playingNowObj;
     int playingNowIndex;
     Player winner; // holds the Player object of the winner set by scoreLimitReached() func.
+    int tilesAmount; // how many tiles each player is supposed to be given. Depends on type of game (2,3 or 4 players).
+                             // value is initialized for gamemode == 2 (2 players).
 
     public Hungarian(int mode) {
         gamemode = mode;
         heap = new Heap();
         table = new Table();
         playerOrderedList = new ArrayList<>();
-        playerOrderedList.add(new Player("Human", "Human"));
+        
+        if (gamemode == 2) {
+            tilesAmount = 12;
+        }  
+        else if (gamemode == 3) {
+            tilesAmount = 8;
+        } else if (gamemode == 4) {
+            tilesAmount = 6;
+        }
+        
+        
+        playerOrderedList.add(new Player("Human", "Human", tilesAmount, heap));
 
         for (int i = 1; i < gamemode; i++) {
             //adds as many bots to playerlist as the chosen game mode needs.
-            playerOrderedList.add(new Player("Bot" + i, "Bot"));
+            playerOrderedList.add(new Player("Bot" + i, "Bot", tilesAmount, heap));
         }
 
     }
@@ -66,15 +79,18 @@ public class Hungarian {
             //System.out.println("LOOP 1");
             playingNowIndex = firstPlayerIndex();
             playingNowObj = playerOrderedList.get(playingNowIndex);
-            
+
             do {
                 //System.out.println("LOOP 2");
                 System.out.println("*** Player: " + playingNowObj.getPlayerName() + " is playing now. ***");
-                table.showTable();
-                System.out.printf("%n%n");
 
                 if (playingNowObj.isBot() == true) {
+                    //TEMP FOR DIAG ONLY
                     System.out.println("^^^^DIAG: I AM A BOT!");
+                    System.out.println("^^^^DIAG: BOT TILES: ");
+                    playingNowObj.showPlayerTiles();
+                    System.out.printf("%n%n");
+                    //TEMP FOR DIAG ONLY
 
                     // ****** WORK IN PROGRESS ******* 
                     //the player that plays now is a bot
@@ -100,6 +116,8 @@ public class Hungarian {
 
                 } else {
                     //the player that plays now is Human
+                    System.out.println("DIAG: I AM A HUMAN!");
+                    System.out.println("^^^^DIAG: HUMAN TILES: ");
                     playingNowObj.showPlayerTiles();
                     System.out.printf("%n%n");
 
@@ -176,14 +194,23 @@ public class Hungarian {
 //                if (playingNowIndex == playerOrderedList.size()) {
 //                    playingNowIndex = 0;
 //                }
+                System.out.println("Table: ");
+                table.showTable();
+                System.out.printf("%n%n");
+                
                 playingNowIndex = whoPlaysNext();
-                System.out.println("^^^ DIAG: playingNowIndex: " + playingNowIndex);
 
             } while (playingNowIndex >= 0);
 
             giveRoundPoints();
             System.out.println("*** END OF ROUND! ***");
+            
+            //clear game table for next round.
             table.clearTable();
+            //give new tiles to players for next round.
+            for (Player player : playerOrderedList) {
+                player.givePlayerTiles(tilesAmount);
+            }
 
         } while (scoreLimitReached() == false);
 
