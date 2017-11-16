@@ -24,24 +24,22 @@ public class Hungarian {
     int playingNowIndex;
     Player winner; // holds the Player object of the winner set by scoreLimitReached() func.
     int tilesAmount; // how many tiles each player is supposed to be given. Depends on type of game (2,3 or 4 players).
-                             // value is initialized for gamemode == 2 (2 players).
+    // value is initialized for gamemode == 2 (2 players).
 
     public Hungarian(int mode) {
         gamemode = mode;
         heap = new Heap();
         table = new Table();
         playerOrderedList = new ArrayList<>();
-        
+
         if (gamemode == 2) {
             tilesAmount = 12;
-        }  
-        else if (gamemode == 3) {
+        } else if (gamemode == 3) {
             tilesAmount = 8;
         } else if (gamemode == 4) {
             tilesAmount = 6;
         }
-        
-        
+
         playerOrderedList.add(new Player("Human", "Human", tilesAmount, heap));
 
         for (int i = 1; i < gamemode; i++) {
@@ -81,16 +79,30 @@ public class Hungarian {
             playingNowObj = playerOrderedList.get(playingNowIndex);
 
             do {
+                
+                playingNowObj = playerOrderedList.get(playingNowIndex); // playingNowObj gets the Player object of the player that is to play now.
+
                 //System.out.println("LOOP 2");
                 System.out.println("*** Player: " + playingNowObj.getPlayerName() + " is playing now. ***");
-
+                System.out.println("Player tiles: ");
+                playingNowObj.showPlayerTiles();
+                System.out.printf("%n%n");
+                
+                //temp for DIAG ONLY
+      
+                System.out.printf("DIAG: HUMAN TILES ARE: ");
+                playerOrderedList.get(0).showPlayerTiles();
+                System.out.printf("%n%n");
+                
+                // end temp for DIAG ONLY    
+                        
                 if (playingNowObj.isBot() == true) {
-                    //TEMP FOR DIAG ONLY
-                    System.out.println("^^^^DIAG: I AM A BOT!");
-                    System.out.println("^^^^DIAG: BOT TILES: ");
-                    playingNowObj.showPlayerTiles();
-                    System.out.printf("%n%n");
-                    //TEMP FOR DIAG ONLY
+//                    //TEMP FOR DIAG ONLY
+//                    System.out.println("^^^^DIAG: I AM A BOT!");
+//                    System.out.println("^^^^DIAG: BOT TILES: ");
+//                    playingNowObj.showPlayerTiles();
+//                    System.out.printf("%n%n");
+//                    //TEMP FOR DIAG ONLY
 
                     // ****** WORK IN PROGRESS ******* 
                     //the player that plays now is a bot
@@ -116,10 +128,10 @@ public class Hungarian {
 
                 } else {
                     //the player that plays now is Human
-                    System.out.println("DIAG: I AM A HUMAN!");
-                    System.out.println("^^^^DIAG: HUMAN TILES: ");
-                    playingNowObj.showPlayerTiles();
-                    System.out.printf("%n%n");
+//                    System.out.println("DIAG: I AM A HUMAN!");
+//                    System.out.println("^^^^DIAG: HUMAN TILES: ");
+//                    playingNowObj.showPlayerTiles();
+//                    System.out.printf("%n%n");
 
                     do {
                         //System.out.println("LOOP 4");
@@ -197,16 +209,18 @@ public class Hungarian {
                 System.out.println("Table: ");
                 table.showTable();
                 System.out.printf("%n%n");
-                
-                playingNowIndex = whoPlaysNext();
+
+                playingNowIndex = whoPlaysNext();  
 
             } while (playingNowIndex >= 0);
 
             giveRoundPoints();
             System.out.println("*** END OF ROUND! ***");
-            
+
             //clear game table for next round.
             table.clearTable();
+            //reset tiles heap (from where players are given their tiles).
+            heap.setAllTiles();
             //give new tiles to players for next round.
             for (Player player : playerOrderedList) {
                 player.givePlayerTiles(tilesAmount);
@@ -273,23 +287,31 @@ public class Hungarian {
 
         if (possibleMoveExists(playerOrderedList.get(playingNowIndex)) == true) {
             //first we check if the player who plays now has a possible move.
+            System.out.println("===================Mpika 1");
             resultIndex = playingNowIndex;
         } else {
+            System.out.println("===================Mpika 2");
+            System.out.println("===================DIAG: before playingNowIndex: " + playingNowIndex);
             int indexLimit = playerOrderedList.size() - 1; // last index number
-            int pos = playingNowIndex++; // we begin from the immediate next index from the index of the player playing now.
+            int pos = playingNowIndex + 1; // we begin from the immediate next index from the index of the player playing now.
             //then we search in the order of the playerOrderedList for the first player that has a possible move.
+            System.out.println("===================DIAG: after playingNowIndex: " + playingNowIndex);
             int loops = 0; // counter - number of times the do-while loop below has been executed
 
             do {
+                System.out.println("===================POS IS: " + pos);
                 if (pos > indexLimit) {
+                    System.out.println("===================Mpika 3");
                     // if we reach the last true index number, we reset the pos to 0 index.
                     pos = 0;
                 }
 
                 if (possibleMoveExists(playerOrderedList.get(pos)) == true) {
+                    System.out.println("===================Mpika 4");
                     resultIndex = pos;
                     break;
                 } else {
+                    System.out.println("===================Mpika 5");
                     pos++;
                 }
 
@@ -298,7 +320,8 @@ public class Hungarian {
             } while (loops < playerOrderedList.size() - 1); // we check playerOrderedList.size() - 1 times since we have already 
             //checked whether the playingNowIndex player had a move using the initial if statement at the beginning of the function.               
         }
-
+        
+        System.out.println("DIAG: the resultIndex return by function is: " + resultIndex);
         return resultIndex;
 
     }

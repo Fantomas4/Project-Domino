@@ -57,7 +57,6 @@ public class Player {
     }
 
     public void givePlayerTiles(int tilesAmount) {
-        heap = new Heap();
         playerTiles = new ArrayList<>();
 
         for (int i = 1; i <= tilesAmount; i++) {
