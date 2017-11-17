@@ -62,7 +62,8 @@ public class TableTest {
        // Table instance = new Table();
         Tile expResult = new Tile(3,5);
         Tile result = instance.getFirstTile();
-        assertEquals(expResult, result);      
+        assertEquals(expResult.getNum1(),result.getNum1());
+        assertEquals(expResult.getNum2(),result.getNum2());
     }
 
     /**
@@ -74,7 +75,8 @@ public class TableTest {
        // Table instance = new Table();
         Tile expResult = new Tile(5,2);
         Tile result = instance.getLastTile();
-        assertEquals(expResult, result);
+        assertEquals(expResult.getNum1(),result.getNum1());
+        assertEquals(expResult.getNum2(),result.getNum2());
     }
 
 //    /**
