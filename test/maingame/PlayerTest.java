@@ -135,8 +135,7 @@ public class PlayerTest {
         
         Tile expResult = maxTile;
         Tile result = instance.getHighestTile();
-        assertEquals(expResult.getNum1(), result.getNum2());
-        assertEquals(expResult.getNum2(), result.getNum1());
+        assertEquals(expResult.getNum1(), result.getNum1());
     }
 
     /**
@@ -166,9 +165,11 @@ public class PlayerTest {
     @Test
     public void testChooseTile() {
         System.out.println("chooseTile");
+        
         int choice = 0;
-        Tile expResult = null;
-        Tile result = instance.chooseTile(choice);
+        ArrayList<Tile> playerTiles = instance.getPlayerTiles();
+        Tile expResult = playerTiles.get(2);
+        Tile result = instance.chooseTile(3);
         assertEquals(expResult, result);
     }
 
@@ -178,8 +179,15 @@ public class PlayerTest {
     @Test
     public void testRemoveTile() {
         System.out.println("removeTile");
-        int choice = 0;
+        
+        ArrayList<Tile> playerTiles = instance.getPlayerTiles();
+        int choice = 5;
+        Tile expResult = playerTiles.get(choice+1);
         instance.removeTile(choice);
+        Tile result = playerTiles.get(choice);
+        assertEquals(expResult,result);
+        
+        
     }
 
     /**
