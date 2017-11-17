@@ -22,6 +22,7 @@ public class PlayerTest {
     Heap heap;
     
     public PlayerTest() {
+        heap = new Heap();
         instance = new Player("Human","Human",12,heap);
         instance.givePlayerTiles(12);
     }
@@ -132,6 +133,7 @@ public class PlayerTest {
         System.out.println("showPlayerTiles");
        // Player instance = null;
         instance.showPlayerTiles();
+        System.out.printf("%n");
     }
 
     /**
@@ -141,7 +143,7 @@ public class PlayerTest {
     public void testGetPlayerTilesAmount() {
         System.out.println("getPlayerTilesAmount");
        // Player instance = null;
-        int expResult = 0;
+        int expResult = 12;
         int result = instance.getPlayerTilesAmount();
         assertEquals(expResult, result);
     }
