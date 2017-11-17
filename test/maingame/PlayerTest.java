@@ -61,7 +61,7 @@ public class PlayerTest {
     public void testGetPlayerName() {
         System.out.println("getPlayerName");
        // Player instance = null;
-        String expResult = "";
+        String expResult = "Human";
         String result = instance.getPlayerName();
         assertEquals(expResult, result);
     }
@@ -73,8 +73,8 @@ public class PlayerTest {
     public void testGetPlayerTiles() {
         System.out.println("getPlayerTiles");
        // Player instance = null;
-        ArrayList<Tile> expResult = null;
-        ArrayList<Tile> result = instance.getPlayerTiles();
+        int expResult = 12;
+        int result = instance.getPlayerTiles().size();
         assertEquals(expResult, result);
     }
 
