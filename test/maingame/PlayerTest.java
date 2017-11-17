@@ -85,7 +85,7 @@ public class PlayerTest {
         ArrayList<Tile> playerTiles = instance.getPlayerTiles();
         int expResult=0;
         for (Tile piece : playerTiles) {
-            expResult+=piece.getNum1()+piece.getNum2();
+            expResult += piece.getNum1()+piece.getNum2();
         }
         int result = instance.getRemainingTilePoints();
         assertEquals(expResult, result);
@@ -110,8 +110,8 @@ public class PlayerTest {
         System.out.println("increaseScore");
         int points = 10;
         instance.increaseScore(points);
-        int expResult=10;
-        int result=instance.getScore();
+        int expResult = 10;
+        int result = instance.getScore();
         assertEquals(expResult, result);
     }
 
@@ -121,9 +121,22 @@ public class PlayerTest {
     @Test
     public void testGetHighestTile() {
         System.out.println("getHighestTile");
-        Tile expResult = null;
+        ArrayList<Tile> playerTiles = instance.getPlayerTiles();
+        
+        Tile maxTile = new Tile(-1, -1);
+
+        for (Tile piece : playerTiles) {
+            if (piece.getNum1() == piece.getNum2()) {
+                if (piece.getNum1() > maxTile.getNum1()) {
+                    maxTile = piece;
+                }
+            }
+        }
+        
+        Tile expResult = maxTile;
         Tile result = instance.getHighestTile();
-        assertEquals(expResult, result);
+        assertEquals(expResult.getNum1(), result.getNum2());
+        assertEquals(expResult.getNum2(), result.getNum1());
     }
 
     /**
