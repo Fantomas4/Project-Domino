@@ -18,8 +18,12 @@ import static org.junit.Assert.*;
  * @author pbach
  */
 public class PlayerTest {
+    Player instance;
+    Heap heap;
     
     public PlayerTest() {
+        instance = new Player("Human","Human",12,heap);
+        instance.givePlayerTiles(12);
     }
     
     @BeforeClass
@@ -44,7 +48,7 @@ public class PlayerTest {
     @Test
     public void testGetScore() {
         System.out.println("getScore");
-        Player instance = null;
+        //Player insance= null;
         int expResult = 0;
         int result = instance.getScore();
         assertEquals(expResult, result);
@@ -56,7 +60,7 @@ public class PlayerTest {
     @Test
     public void testGetPlayerName() {
         System.out.println("getPlayerName");
-        Player instance = null;
+       // Player instance = null;
         String expResult = "";
         String result = instance.getPlayerName();
         assertEquals(expResult, result);
@@ -68,7 +72,7 @@ public class PlayerTest {
     @Test
     public void testGetPlayerTiles() {
         System.out.println("getPlayerTiles");
-        Player instance = null;
+       // Player instance = null;
         ArrayList<Tile> expResult = null;
         ArrayList<Tile> result = instance.getPlayerTiles();
         assertEquals(expResult, result);
@@ -80,7 +84,7 @@ public class PlayerTest {
     @Test
     public void testGetRemainingTilePoints() {
         System.out.println("getRemainingTilePoints");
-        Player instance = null;
+        //Player instance = null;
         int expResult = 0;
         int result = instance.getRemainingTilePoints();
         assertEquals(expResult, result);
@@ -93,7 +97,7 @@ public class PlayerTest {
     public void testGivePlayerTiles() {
         System.out.println("givePlayerTiles");
         int tilesAmount = 0;
-        Player instance = null;
+        //Player instance = null;
         instance.givePlayerTiles(tilesAmount);
     }
 
@@ -104,7 +108,7 @@ public class PlayerTest {
     public void testIncreaseScore() {
         System.out.println("increaseScore");
         int points = 0;
-        Player instance = null;
+        //Player instance = null;
         instance.increaseScore(points);
     }
 
@@ -114,7 +118,7 @@ public class PlayerTest {
     @Test
     public void testGetHighestTile() {
         System.out.println("getHighestTile");
-        Player instance = null;
+        //Player instance = null;
         Tile expResult = null;
         Tile result = instance.getHighestTile();
         assertEquals(expResult, result);
@@ -126,7 +130,7 @@ public class PlayerTest {
     @Test
     public void testShowPlayerTiles() {
         System.out.println("showPlayerTiles");
-        Player instance = null;
+       // Player instance = null;
         instance.showPlayerTiles();
     }
 
@@ -136,7 +140,7 @@ public class PlayerTest {
     @Test
     public void testGetPlayerTilesAmount() {
         System.out.println("getPlayerTilesAmount");
-        Player instance = null;
+       // Player instance = null;
         int expResult = 0;
         int result = instance.getPlayerTilesAmount();
         assertEquals(expResult, result);
@@ -149,7 +153,7 @@ public class PlayerTest {
     public void testChooseTile() {
         System.out.println("chooseTile");
         int choice = 0;
-        Player instance = null;
+       // Player instance = null;
         Tile expResult = null;
         Tile result = instance.chooseTile(choice);
         assertEquals(expResult, result);
@@ -162,7 +166,7 @@ public class PlayerTest {
     public void testRemoveTile() {
         System.out.println("removeTile");
         int choice = 0;
-        Player instance = null;
+       // Player instance = null;
         instance.removeTile(choice);
     }
 
@@ -172,7 +176,7 @@ public class PlayerTest {
     @Test
     public void testIsBot() {
         System.out.println("isBot");
-        Player instance = null;
+       // Player instance = null;
         boolean expResult = false;
         boolean result = instance.isBot();
         assertEquals(expResult, result);
