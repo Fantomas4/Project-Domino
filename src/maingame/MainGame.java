@@ -24,7 +24,7 @@ public class MainGame {
         do {
             userChoice = mainMenu.menuChoice();
 
-            if (userChoice == 1) {
+         if (userChoice == 1) {
                 Solo1 gameInstance = new Solo1();
                 gameInstance.run();
             } else if (userChoice == 2) {
