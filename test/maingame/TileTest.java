@@ -38,7 +38,7 @@ public class TileTest {
         int result = instance.getNum1();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-        fail("Test getNum2 failed : expected : " + expResult + " Got : " + result);
+        //fail("Test getNum1 failed : expected : " + expResult + " Got : " + result);
     }
 
     /**
@@ -52,7 +52,7 @@ public class TileTest {
         int result = instance.getNum2();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-        fail("Test getNum1 failed : expected : " + expResult + " Got : " + result);
+        //fail("Test getNum2 failed : expected : " + expResult + " Got : " + result);
     }
 
     /**
@@ -61,10 +61,10 @@ public class TileTest {
     @Test
     public void testRotateTile() {
         System.out.println("rotateTile");
-        Tile instance = null;
+        Tile instance = new Tile(6,0);
         instance.rotateTile();
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        //fail("The test case is a prototype.");
     }
     
 }
