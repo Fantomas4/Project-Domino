@@ -5,14 +5,16 @@
  */
 package maingame;
 
+import org.junit.After;
 import org.junit.AfterClass;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
  *
- * @author pbach
+ * @author Sierra Kilo
  */
 public class TileTest {
     
@@ -26,6 +28,14 @@ public class TileTest {
     @AfterClass
     public static void tearDownClass() {
     }
+    
+    @Before
+    public void setUp() {
+    }
+    
+    @After
+    public void tearDown() {
+    }
 
     /**
      * Test of getNum1 method, of class Tile.
@@ -37,8 +47,6 @@ public class TileTest {
         int expResult = 3;
         int result = instance.getNum1();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        //fail("Test getNum1 failed : expected : " + expResult + " Got : " + result);
     }
 
     /**
@@ -51,8 +59,6 @@ public class TileTest {
         int expResult = 5;
         int result = instance.getNum2();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        //fail("Test getNum2 failed : expected : " + expResult + " Got : " + result);
     }
 
     /**
@@ -63,8 +69,6 @@ public class TileTest {
         System.out.println("rotateTile");
         Tile instance = new Tile(6,0);
         instance.rotateTile();
-        // TODO review the generated test code and remove the default call to fail.
-        //fail("The test case is a prototype.");
     }
     
 }
