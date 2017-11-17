@@ -17,8 +17,12 @@ import static org.junit.Assert.*;
  * @author pbach
  */
 public class TableTest {
+    Table instance;
     
     public TableTest() {
+        instance= new Table();
+        instance.addTile(new Tile(3,5), "left");
+        instance.addTile(new Tile(5,2),"right");
     }
     
     @BeforeClass
@@ -43,12 +47,10 @@ public class TableTest {
     @Test
     public void testGetSize() {
         System.out.println("getSize");
-        Table instance = new Table();
-        int expResult = 0;
+       // Table instance = new Table();
+        int expResult = 2;
         int result = instance.getSize();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -57,12 +59,10 @@ public class TableTest {
     @Test
     public void testGetFirstTile() {
         System.out.println("getFirstTile");
-        Table instance = new Table();
-        Tile expResult = null;
+       // Table instance = new Table();
+        Tile expResult = new Tile(3,5);
         Tile result = instance.getFirstTile();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals(expResult, result);      
     }
 
     /**
@@ -71,50 +71,42 @@ public class TableTest {
     @Test
     public void testGetLastTile() {
         System.out.println("getLastTile");
-        Table instance = new Table();
-        Tile expResult = null;
+       // Table instance = new Table();
+        Tile expResult = new Tile(5,2);
         Tile result = instance.getLastTile();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
-    /**
-     * Test of addTile method, of class Table.
-     */
-    @Test
-    public void testAddTile() {
-        System.out.println("addTile");
-        Tile piece = null;
-        String side = "";
-        Table instance = new Table();
-        instance.addTile(piece, side);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
+//    /**
+//     * Test of addTile method, of class Table.
+//     */
+//    @Test
+//    public void testAddTile() {
+//        System.out.println("addTile");
+//        Tile piece = null;
+//        String side = "";
+//       // Table instance = new Table();
+//        instance.addTile(piece, side);
+//    }
 
     /**
      * Test of clearTable method, of class Table.
      */
-    @Test
-    public void testClearTable() {
-        System.out.println("clearTable");
-        Table instance = new Table();
-        instance.clearTable();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
+//    @Test
+//    public void testClearTable() {
+//        System.out.println("clearTable");
+//        //Table instance = new Table();
+//        instance.clearTable();
+//    }
 
     /**
      * Test of showTable method, of class Table.
      */
-    @Test
-    public void testShowTable() {
-        System.out.println("showTable");
-        Table instance = new Table();
-        instance.showTable();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
+//    @Test
+//    public void testShowTable() {
+//        System.out.println("showTable");
+//        //Table instance = new Table();
+//        instance.showTable();
+//    }
     
 }
