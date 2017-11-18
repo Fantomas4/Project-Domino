@@ -14,7 +14,7 @@ import java.util.Scanner;
  */
 public class Table {
 
-    ArrayList<Tile> tableTiles;
+    private ArrayList<Tile> tableTiles;
 
     public Table() {
         tableTiles = new ArrayList<>();
@@ -48,10 +48,8 @@ public class Table {
         tableTiles.clear();
     }
 
-    public void showTable() {
-        for (Tile piece : tableTiles) {
-            System.out.printf("|%d %d|", piece.getNum1(), piece.getNum2());
-        }
+    public ArrayList<Tile> getTable() {
+        return tableTiles;
     }
 
 }

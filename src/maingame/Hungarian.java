@@ -81,7 +81,7 @@ public class Hungarian {
             do {
                 System.out.printf("%n%n%n%n%n%n");
                 System.out.println("==================================================================================");
-                for(Player player : playerOrderedList) {
+                for (Player player : playerOrderedList) {
                     //prints each player's hand at the beginning of each move.
                     System.out.printf(player.getPlayerName() + " player's hand: ");
                     player.showPlayerTiles();
@@ -89,20 +89,19 @@ public class Hungarian {
                 }
                 System.out.println("==================================================================================");
                 System.out.printf("%n");
-                
+
                 playingNowObj = playerOrderedList.get(playingNowIndex); // playingNowObj gets the Player object of the player that is to play now.
 
                 //System.out.println("LOOP 2");
                 System.out.println("*** Player  > " + playingNowObj.getPlayerName() + " <  is playing now. ***");
                 System.out.printf("%n");
                 System.out.printf("Table: ");
-                table.showTable();
+                showTable();
                 System.out.printf("%n%n");
                 System.out.printf("Player tiles: ");
                 playingNowObj.showPlayerTiles();
                 System.out.printf("%n");
-                  
-                        
+
                 if (playingNowObj.isBot() == true) {
 //                    //TEMP FOR DIAG ONLY
 //                    System.out.println("^^^^DIAG: I AM A BOT!");
@@ -203,11 +202,11 @@ public class Hungarian {
                         }
 
                     } while (true);
-                    
+
                     System.out.println("==================================================================================");
                 }
 
-                playingNowIndex = whoPlaysNext();  
+                playingNowIndex = whoPlaysNext();
 
             } while (playingNowIndex >= 0);
 
@@ -313,16 +312,15 @@ public class Hungarian {
             } while (loops < playerOrderedList.size() - 1); // we check playerOrderedList.size() - 1 times since we have already 
             //checked whether the playingNowIndex player had a move using the initial if statement at the beginning of the function.               
         }
-        
+
         //System.out.println("DIAG: the resultIndex return by function is: " + resultIndex);
         return resultIndex;
 
     }
 
     public int giveRoundPoints() {
-        
-        //increases player points in player object and returns total points added.
 
+        //increases player points in player object and returns total points added.
         int totalPoints = 0;
         int minPoints = playerOrderedList.get(0).getRemainingTilePoints();
         int minPlayerIndex = 0;
@@ -342,7 +340,7 @@ public class Hungarian {
         //in his hand and is about to receive the totalPoints sum.
         playerOrderedList.get(minPlayerIndex).increaseScore(totalPoints); //gives accumulated points to the
         // player who has the fewest points.
-        
+
         return totalPoints;
 
     }
@@ -356,6 +354,15 @@ public class Hungarian {
         }
         return false;
 
+    }
+
+    public void showTable() {
+
+        ArrayList<Tile> tableTiles = table.getTable();
+
+        for (Tile piece : tableTiles) {
+            System.out.printf("|%d %d|", piece.getNum1(), piece.getNum2());
+        }
     }
 
 }

@@ -32,7 +32,7 @@ public class Solo1 {
 
         do {
             System.out.println("Heap: ");
-            heap.showHeap();
+            showHeap();
             System.out.printf("%n%n%n");
             
             do {
@@ -98,7 +98,7 @@ public class Solo1 {
             } while (true);
             
             System.out.println("Table: ");
-            table.showTable();
+            showTable();
             System.out.printf("%n%n%n");
 
         } while (gameStatus() == 1); // 1: game in progress.
@@ -147,45 +147,7 @@ public class Solo1 {
         }
         return result;
     }
-    //returns empty ArrayList if there is no possible move.
-
-    //returns ArrayList that contains the objects describing the possible moves, 
-    //if possible move exists.
-    //
-    //            return 1;
-    //
-    //            //there are already tiles placed on the table.
-    //        }
-    //        if (table.getSize() == 0) {
-    //
-    //            return 1;
-    //
-    //            //there are already tiles placed on the table.
-    //        } else if (piece.getNum1() == table.getFirstTile().getNum1()) {
-    //            return 2;
-    //        } else if (piece.getNum2() == table.getFirstTile().getNum1()) {
-    //            return 1;
-    //        } else if (piece.getNum1() == table.getLastTile().getNum2()) {
-    //            return 1;
-    //        } else if () {
-    //            return 2;
-    //
-    //            //incorrect tile choice from heap incompatible with table
-    //        } else {
-    //            return 0;
-    //        }
-    //
-    //    }
-    //    public boolean moveExists(Table table) {
-    //
-    //        for(int i=1; i<5 ; i++) {
-    //            if (checkTile(heap.chooseTile(i),0) == true || checkTile(heap.chooseTile(i),1)== true ){
-    //                return true;
-    //            } 
-    //        }
-    //        return false;
-    //    }
-    //  
+  
     public int gameStatus() {
         //0 == gameover, 1 = in progress, 2 = win
         //MPOREI NA SIKONEI KAI VELTIOSI ALGORITHMOU
@@ -198,6 +160,29 @@ public class Solo1 {
             result = 0;
         }
         return result;
+    }
+    
+    public void showTable() {
+        
+        ArrayList<Tile> tableTiles = table.getTable();
+        
+        for (Tile piece : tableTiles) {
+            System.out.printf("|%d %d|", piece.getNum1(), piece.getNum2());
+        }
+    }
+    
+    public void showHeap() {
+        
+        ArrayList<ArrayList<Tile>> heapTiles = heap.getHeap();
+        
+        for (int i = 0; i < heapTiles.size(); i++) {
+            ArrayList<Tile> column = heapTiles.get(i);
+            for (int j = 0; j < column.size(); j++) {
+                Tile piece = column.get(j);
+                System.out.printf("|%d %d| ", piece.getNum1(), piece.getNum2());
+            }
+            System.out.printf("%n%n");
+        }
     }
 
 }

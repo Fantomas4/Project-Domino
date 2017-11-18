@@ -15,9 +15,9 @@ import java.util.Random;
  */
 public class Heap {
 
-    ArrayList<Tile> allTiles; //contains all the 28 pieces of the domino.
-    ArrayList<ArrayList<Tile>> heapTiles; //4x7 table of all the heap tiles.
-    int pos = 0;
+    private ArrayList<Tile> allTiles; //contains all the 28 pieces of the domino.
+    private ArrayList<ArrayList<Tile>> heapTiles; //4x7 table of all the heap tiles.
+    private int pos = 0;
 
     public Heap() {
         
@@ -36,15 +36,8 @@ public class Heap {
         }
     }
 
-    public void showHeap() {
-        for (int i = 0; i < heapTiles.size(); i++) {
-            ArrayList<Tile> column = heapTiles.get(i);
-            for (int j = 0; j < column.size(); j++) {
-                Tile piece = column.get(j);
-                System.out.printf("|%d %d| ", piece.getNum1(), piece.getNum2());
-            }
-            System.out.printf("%n%n");
-        }
+    public ArrayList<ArrayList<Tile>> getHeap() {
+        return heapTiles;
     }
 
     public void removeTile(int choice) {
