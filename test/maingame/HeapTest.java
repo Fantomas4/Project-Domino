@@ -19,17 +19,9 @@ import static org.junit.Assert.*;
  */
 public class HeapTest {
     Heap instance;
-    ArrayList<ArrayList<Tile>> allTiles;
-    ArrayList<Tile> playerTiles;
     
     public HeapTest() {
         instance = new Heap();
-        playerTiles = new ArrayList<>();
-        playerTiles.add(new Tile(1,2));
-        playerTiles.add(new Tile(2,3));
-        playerTiles.add(new Tile(3,6));
-        allTiles = new ArrayList<>();
-        allTiles.add(playerTiles);
     }
     
     @BeforeClass
@@ -49,12 +41,17 @@ public class HeapTest {
     }
 
     /**
-     * Test of showHeap method, of class Heap.
+     * Test of getHeap method, of class Heap.
      */
     @Test
-    public void testShowHeap() {
-        System.out.println("showHeap");
-        instance.showHeap();
+    public void testGetHeap() {
+        System.out.println("getHeap");
+        
+        boolean result = false;
+        boolean expResult = true;
+        if (instance.getHeap().size()>0)
+            result = true;
+        assertEquals(expResult, result);
     }
 
     /**
@@ -63,10 +60,12 @@ public class HeapTest {
     @Test
     public void testRemoveTile() {
         System.out.println("removeTile");
-        int choice = 1;
-        Tile expResult = allTiles.get(0).get(choice+1);
-        instance.removeTile(choice);
-        Tile result = allTiles.get(0).get(choice);
+        
+        int choice = 0;
+        ArrayList<Tile> column = instance.getHeap().get(choice);
+        Tile expResult = column.get(5);
+        instance.removeTile(choice+1);
+        Tile result = instance.getHeap().get(choice).get(column.size()-1);
         assertEquals(expResult, result);
     }
 
@@ -76,22 +75,28 @@ public class HeapTest {
     @Test
     public void testChooseTile() {
         System.out.println("chooseTile");
-        int choice = 1;
-        Tile expResult = new Tile(3,6);
-        Tile result = instance.chooseTile(choice);
+        
+        int choice = 0;
+        ArrayList<Tile> column = instance.getHeap().get(choice);
+        Tile expResult = column.get(column.size()-1);
+        Tile result = instance.chooseTile(choice+1);
         assertEquals(expResult, result);
     }
 
     /**
      * Test of pickRandomTile method, of class Heap.
      */
-//    @Test
-//    public void testPickRandomTile() {
-//        System.out.println("pickRandomTile");
-//        Tile expResult = null;
-//        Tile result = instance.pickRandomTile();
-//        assertEquals(expResult, result);
-//    }
+    @Test
+    public void testPickRandomTile() {
+        System.out.println("pickRandomTile");
+        
+        boolean result = false;
+        boolean expResult = true;
+        Tile piece = instance.pickRandomTile();
+        if (piece.getNum1()>-1 && piece.getNum1()<7 && piece.getNum2()>-1 && piece.getNum2()<7)
+            result = true;
+        assertEquals(expResult, result);
+    }
 
     /**
      * Test of setAllTiles method, of class Heap.
