@@ -84,7 +84,7 @@ public class Hungarian {
                 for (Player player : playerOrderedList) {
                     //prints each player's hand at the beginning of each move.
                     System.out.printf(player.getPlayerName() + " player's hand: ");
-                    player.showPlayerTiles();
+                    showPlayerTiles(player);
                     System.out.printf("%n");
                 }
                 System.out.println("==================================================================================");
@@ -99,7 +99,7 @@ public class Hungarian {
                 showTable();
                 System.out.printf("%n%n");
                 System.out.printf("Player tiles: ");
-                playingNowObj.showPlayerTiles();
+                showPlayerTiles(playingNowObj);
                 System.out.printf("%n");
 
                 if (playingNowObj.isBot() == true) {
@@ -361,6 +361,15 @@ public class Hungarian {
         ArrayList<Tile> tableTiles = table.getTable();
 
         for (Tile piece : tableTiles) {
+            System.out.printf("|%d %d|", piece.getNum1(), piece.getNum2());
+        }
+    }
+    
+    public void showPlayerTiles(Player player) {
+        
+        ArrayList<Tile> playerTiles = player.getPlayerTiles();
+        
+        for (Tile piece : playerTiles) {
             System.out.printf("|%d %d|", piece.getNum1(), piece.getNum2());
         }
     }

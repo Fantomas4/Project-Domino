@@ -85,12 +85,6 @@ public class Player {
         return maxTile;
     }
 
-    public void showPlayerTiles() {
-        for (Tile piece : playerTiles) {
-            System.out.printf("|%d %d|", piece.getNum1(), piece.getNum2());
-        }
-    }
-
     public int getPlayerTilesAmount() {
         return playerTiles.size();
     }
