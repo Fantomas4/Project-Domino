@@ -81,9 +81,8 @@ public class HungarianTest {
     @Test
     public void testWhoPlaysNext() {
         System.out.println("whoPlaysNext");
+        
         int expResult = 0;
-        if (!instance.possibleMoveExists(new Player("Human","Human",12,heap)))
-            expResult = 1;
         int result = instance.whoPlaysNext();
         assertEquals(expResult, result);
     }
