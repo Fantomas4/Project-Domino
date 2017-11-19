@@ -19,9 +19,11 @@ import static org.junit.Assert.*;
  */
 public class HungarianTest {
     Hungarian instance;
+    Heap heap;
     
     public HungarianTest() {
         instance = new Hungarian(2);
+        heap = new Heap();
     }
     
     @BeforeClass
@@ -80,6 +82,8 @@ public class HungarianTest {
     public void testWhoPlaysNext() {
         System.out.println("whoPlaysNext");
         int expResult = 0;
+        if (!instance.possibleMoveExists(new Player("Human","Human",12,heap)))
+            expResult = 1;
         int result = instance.whoPlaysNext();
         assertEquals(expResult, result);
     }
@@ -90,18 +94,25 @@ public class HungarianTest {
     @Test
     public void testGiveRoundPoints() {
         System.out.println("giveRoundPoints");
-        int expResult = 0;
-        int result = instance.giveRoundPoints();
+        
+        boolean expResult = true;
+        boolean result = false;
+        if (instance.giveRoundPoints()>0)
+            result = true;
         assertEquals(expResult, result);
     }
-
+    
     /**
      * Test of scoreLimitReached method, of class Hungarian.
      */
     @Test
     public void testScoreLimitReached() {
         System.out.println("scoreLimitReached");
-        boolean expResult = true;
+        
+        int score = 57;
+        boolean expResult = false;
+        if (score>=100)
+            expResult = true ;
         boolean result = instance.scoreLimitReached();
         assertEquals(expResult, result);
     }
