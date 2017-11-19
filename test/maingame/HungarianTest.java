@@ -82,7 +82,9 @@ public class HungarianTest {
     public void testWhoPlaysNext() {
         System.out.println("whoPlaysNext");
         
-        int expResult = 0;
+        int expResult = 1;
+        if (!instance.possibleMoveExists())
+            expResult = 0;
         int result = instance.whoPlaysNext();
         assertEquals(expResult, result);
     }
