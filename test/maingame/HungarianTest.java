@@ -78,16 +78,16 @@ public class HungarianTest {
     /**
      * Test of whoPlaysNext method, of class Hungarian.
      */
-    @Test
-    public void testWhoPlaysNext() {
-        System.out.println("whoPlaysNext");
-        
-        int expResult = 1;
-        if (!instance.possibleMoveExists())
+   @Test
+   public void testWhoPlaysNext() {
+       System.out.println("whoPlaysNext");
+       
+       int expResult = 1;
+       if (instance.possibleMoveExists(new Player("Human","Human",12,heap)))
             expResult = 0;
         int result = instance.whoPlaysNext();
         assertEquals(expResult, result);
-    }
+   }
 
     /**
      * Test of giveRoundPoints method, of class Hungarian.
