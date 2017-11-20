@@ -20,10 +20,15 @@ import static org.junit.Assert.*;
 public class HungarianTest {
     Hungarian instance;
     Heap heap;
+    Table table;
     
     public HungarianTest() {
         instance = new Hungarian(2);
         heap = new Heap();
+        table = new Table();
+        table.addTile(new Tile(1,2), "left");
+        table.addTile(new Tile(2,4),"right");
+        table.addTile(new Tile(4,3),"right");
     }
     
     @BeforeClass
@@ -57,9 +62,10 @@ public class HungarianTest {
     @Test
     public void testCheckTileChoice() {
         System.out.println("checkTileChoice");
-        Tile piece = null;
-        ArrayList<PossibleMove> expResult = null;
-        ArrayList<PossibleMove> result = instance.checkTileChoice(piece);
+        
+        ArrayList<PossibleMove> expResult = new ArrayList<>();
+        ArrayList<PossibleMove> result = instance.checkTileChoice(new Tile(3,5));
+        expResult.add(new PossibleMove(false,"right"));
         assertEquals(expResult, result);
     }
 
@@ -69,8 +75,10 @@ public class HungarianTest {
     @Test
     public void testPossibleMoveExists() {
         System.out.println("possibleMoveExists");
-        Player subject = null;
-        boolean expResult = false;
+        
+        Player subject = new Player("Human","Human",12,heap);
+        Tile playerTiles = new Tile(3,5);
+        boolean expResult = true;
         boolean result = instance.possibleMoveExists(subject);
         assertEquals(expResult, result);
     }
@@ -96,10 +104,15 @@ public class HungarianTest {
     public void testGiveRoundPoints() {
         System.out.println("giveRoundPoints");
         
-        boolean expResult = true;
-        boolean result = false;
-        if (instance.giveRoundPoints()>0)
-            result = true;
+        ArrayList<Player> allPlayers = new ArrayList<>();
+        allPlayers.add(new Player("Human","Human",12,heap));
+        allPlayers.add(new Player("Bot","Bot",12,heap));
+        allPlayers.get(0).givePlayerTiles(12);
+        allPlayers.get(1).givePlayerTiles(12);
+        int expResult = allPlayers.get(0).getRemainingTilePoints();
+        if(allPlayers.get(1).getRemainingTilePoints()>expResult)
+            expResult = allPlayers.get(1).getRemainingTilePoints();
+        int result = instance.giveRoundPoints();
         assertEquals(expResult, result);
     }
     
