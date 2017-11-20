@@ -16,14 +16,14 @@ import java.util.Scanner;
  */
 public class Hungarian {
 
-    int gamemode; //2: two players (one human, one bot), 3: 3 players (one human, two bots) etc.
-    Heap heap;
-    Table table;
-    ArrayList<Player> playerOrderedList; //The first position of the list containes the player that is to play now.
-    Player playingNowObj;
-    int playingNowIndex;
-    Player winner; // holds the Player object of the winner set by scoreLimitReached() func.
-    int tilesAmount; // how many tiles each player is supposed to be given. Depends on type of game (2,3 or 4 players).
+    private int gamemode; //2: two players (one human, one bot), 3: 3 players (one human, two bots) etc.
+    private Heap heap;
+    private Table table;
+    private ArrayList<Player> playerOrderedList; //The first position of the list containes the player that is to play now.
+    private Player playingNowObj;
+    private int playingNowIndex;
+    private Player winner; // holds the Player object of the winner set by scoreLimitReached() func.
+    private int tilesAmount; // how many tiles each player is supposed to be given. Depends on type of game (2,3 or 4 players).
     // value is initialized for gamemode == 2 (2 players).
 
     public Hungarian(int mode) {
@@ -103,25 +103,18 @@ public class Hungarian {
                 System.out.printf("%n");
 
                 if (playingNowObj.isBot() == true) {
-//                    //TEMP FOR DIAG ONLY
-//                    System.out.println("^^^^DIAG: I AM A BOT!");
-//                    System.out.println("^^^^DIAG: BOT TILES: ");
-//                    playingNowObj.showPlayerTiles();
-//                    System.out.printf("%n%n");
-//                    //TEMP FOR DIAG ONLY
 
-                    // ****** WORK IN PROGRESS ******* 
                     //the player that plays now is a bot
                     ArrayList<Tile> botTiles = playingNowObj.getPlayerTiles();
                     ArrayList<PossibleMove> botResult;
                     Tile botChosenTile;
 
                     for (int i = 0; i < botTiles.size(); i++) {
-                        //System.out.println("LOOP 3");
+
                         botChosenTile = botTiles.get(i);
                         botResult = checkTileChoice(botChosenTile);
                         if (botResult.size() > 0) {
-                            //System.out.println("DOMI IF 1");
+
                             // if at least one move exists for the selected bot tile.
                             if (botResult.get(0).needsRotation() == true) {
                                 botChosenTile.rotateTile();
@@ -134,13 +127,9 @@ public class Hungarian {
 
                 } else {
                     //the player that plays now is Human
-//                    System.out.println("DIAG: I AM A HUMAN!");
-//                    System.out.println("^^^^DIAG: HUMAN TILES: ");
-//                    playingNowObj.showPlayerTiles();
-//                    System.out.printf("%n%n");
 
                     do {
-                        //System.out.println("LOOP 4");
+
                         System.out.printf("%n");
                         System.out.println("Choose which tile you want to play with (1-" + playingNowObj.getPlayerTilesAmount() + "): ");
                         choice = input.nextInt();

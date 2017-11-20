@@ -10,10 +10,11 @@ package maingame;
  * @author sierra
  */
 public class PossibleMove {
-    boolean rotation;   // 0: Tile needs to be rotated before placing it 
+    
+    private boolean rotation;   // 0: Tile needs to be rotated before placing it 
                         //1: Tile does not need to be rotated before placing it
     
-    String side; //left or right
+    private String side; //left or right
     
     public PossibleMove(boolean rotation, String side) {
         this.rotation = rotation;

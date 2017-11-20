@@ -10,6 +10,7 @@ package maingame;
  * @author Sierra Kilo
  */
 public class Tile {
+    
     private int num1;
     private int num2;
     

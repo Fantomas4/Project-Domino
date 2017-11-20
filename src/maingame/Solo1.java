@@ -14,8 +14,8 @@ import java.util.Scanner;
  */
 public class Solo1 {
 
-    Heap heap;
-    Table table;
+    private Heap heap;
+    private Table table;
 
     public Solo1() {
         heap = new Heap();

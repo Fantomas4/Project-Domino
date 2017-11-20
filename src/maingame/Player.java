@@ -13,11 +13,11 @@ import java.util.ArrayList;
  */
 public class Player {
 
-    ArrayList<Tile> playerTiles;
-    int score;
-    String name;
-    boolean bot;
-    Heap heap;
+    private ArrayList<Tile> playerTiles;
+    private int score;
+    private String name;
+    private boolean bot;
+    private Heap heap;
 
     public Player(String name, String type, int tilesAmount, Heap heap) {
 
