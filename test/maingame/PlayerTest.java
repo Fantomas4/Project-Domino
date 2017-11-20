@@ -139,16 +139,6 @@ public class PlayerTest {
     }
 
     /**
-     * Test of showPlayerTiles method, of class Player.
-     */
-    @Test
-    public void testShowPlayerTiles() {
-        System.out.println("showPlayerTiles");
-        instance.showPlayerTiles();
-        System.out.printf("%n");
-    }
-
-    /**
      * Test of getPlayerTilesAmount method, of class Player.
      */
     @Test
